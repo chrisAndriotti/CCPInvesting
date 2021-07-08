@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sc.ccpinvesting.ccpinvestingapi.model.Carteira;
 import sc.ccpinvesting.ccpinvestingapi.model.Compra;
 import sc.ccpinvesting.ccpinvestingapi.model.Investidor;
 import sc.ccpinvesting.ccpinvestingapi.repository.CompraRepository;
@@ -24,7 +23,7 @@ public class CompraService {
     CompraRepository compraRepository;
 
     @Autowired 
-    CarteiraService carteiraService;
+    InvestimentoService investimentoService;
 
 
     public List<Compra> buscarTodos()
@@ -37,38 +36,85 @@ public class CompraService {
         return compraRepository.findById(id).get();
     }
 
-    // Cada compra deve ter um novo ID.
     public Compra salvar(Compra compra)
     {
         return compraRepository.save(compra);
     }
 
-    public Investidor comprarAcao(Integer idInvestidor, Integer idAcao, Integer quantidade)
+    public Investidor comprarAcao(Compra compra)
     {
-        Compra compra = new Compra();
-        compra.setAcaoId(idAcao);
-        compra.setInvestidorId(idInvestidor);
-        compra.setQuantidade(quantidade);
-
-        salvar(compra);
         
-        var investidor = investidorService.buscarPorId(idInvestidor);   
-        var acao = acaoService.buscarPorId(idAcao);
-        var totalCompra = calculoTotalCompra(idAcao, quantidade);
+        var investidor = investidorService.buscarPorId(compra.getInvestidorId());   
+        var investidorId = investidor.getId();
 
-        Carteira carteiraVazia= carteiraService.criar();
-        carteiraVazia.setAcoes(acao);
-        carteiraVazia.setValor(totalCompra);
+        var investidorCarteira = investidor.getCarteira();
+        var investimentos = investidor.getInvestimento();
 
-        investidorService.atualizaCarteira(idInvestidor, carteiraVazia);
+        var acao = acaoService.buscarPorId(compra.getAcaoId());
+        var acaoId = acao.getId();
 
-        
+
+        var totalCompra = calculoTotalCompra(acao.getId(), compra.getQuantidade());
+
+        //valida o saldo para a compra
+        if(investidorCarteira >= totalCompra){
+   
+            //A lista de investimento não esta vazia
+            if(!investimentos.isEmpty()){
+                
+                var flag = false;
+
+                for(var i = 0; i < investimentos.size(); i++){
+                    
+                    var investimento = investimentos.get(i);
+
+                    if(investimento.getAcao().getId() == acaoId)
+                    {              
+                        var valor = investimento.getValor();
+                        var idInvestimento = investimento.getId();
+
+                        investimento.setValor(valor + totalCompra);
+                        investimento.setAtivo(true);
+                        investimentoService.atualizar(idInvestimento, investimento);
+                        //investidorService.incluirInvestimento(idInvestidor, investimento, true);
+                        flag = true;
+                        break;
+                    }
+                    
+                }
+
+                if(!flag){
+                    
+                    var investimentoNovo = investimentoService.criarComParametros(acao, totalCompra, true);
+
+                    investidorService.incluirInvestimento(investidorId, investimentoNovo, false);
+
+                }
+
+            }
+            // A lista de investimentos está vazia
+            else{
+
+                var investimentoNovo = investimentoService.criarComParametros(acao, totalCompra, true);
+
+                investidorService.incluirInvestimento(investidorId, investimentoNovo, false);
+                
+            }
+
+            investidorCarteira -= totalCompra;
+            investidor.setCarteira(investidorCarteira);
+
+            salvar(compra);
+           
+        }
+
         return investidor;
         
     }
 
     public Double calculoTotalCompra(Integer idAcao, Integer quantidadeAcao)
     {
+
         var acao = acaoService.buscarPorId(idAcao);
         var precoAcao = acao.getPreco();
 

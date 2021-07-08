@@ -6,9 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sc.ccpinvesting.ccpinvestingapi.model.Carteira;
+import sc.ccpinvesting.ccpinvestingapi.model.Investimento;
+import sc.ccpinvesting.ccpinvestingapi.model.Permissao;
+import sc.ccpinvesting.ccpinvestingapi.model.Transacao;
+import sc.ccpinvesting.ccpinvestingapi.model.Usuario;
 import sc.ccpinvesting.ccpinvestingapi.model.Investidor;
 import sc.ccpinvesting.ccpinvestingapi.repository.InvestidorRepository;
+import sc.ccpinvesting.ccpinvestingapi.repository.PermissaoRepository;
+import sc.ccpinvesting.ccpinvestingapi.repository.TransacaoRepository;
 
 @Service
 public class InvestidorService {
@@ -17,7 +22,16 @@ public class InvestidorService {
     InvestidorRepository investidorRepository;
 
     @Autowired
-    CarteiraService carteiraService;
+    TransacaoRepository transacaoRepository;
+
+    @Autowired
+    InvestimentoService investimentoService;
+
+    @Autowired
+    PermissaoRepository permissaoRepository;
+
+    @Autowired
+    UsuarioService usuarioService;
 
     public List<Investidor> buscarTodos()
     {
@@ -29,9 +43,25 @@ public class InvestidorService {
         return investidorRepository.findById(id).get();
     }
 
-    public Investidor salvar(Investidor investidor)
+    public Investidor cadastrar(Investidor investidor)
     {
+        Usuario usuario = new Usuario();
+        usuario.setLogin(investidor.getUsuario().getLogin());
+        usuario.setSenha(investidor.getUsuario().getSenha());
+
+        Permissao permissao = permissaoRepository.findById(2).get();
+
+        List<Permissao> lista = new ArrayList<>();
+        lista.add(permissao);
+
+        usuario.setPermissoes(lista);
+        
+        usuarioService.cadastrar(usuario);
+        
+        investidor.setUsuario(usuario);
+
         return investidorRepository.save(investidor);
+
     }
 
     public Investidor atualizar(Integer id, Investidor investidor)
@@ -47,24 +77,84 @@ public class InvestidorService {
         investidorRepository.deleteById(id);
     }
 
-    public void atualizaCarteira (Integer idInvestidor, Carteira carteira)
+    //TODO Mudar para investimentoService 
+    public void incluirInvestimento (Integer idInvestidor, Investimento investimento, Boolean idAcaoIgual)
     {
         var investidor = buscarPorId(idInvestidor);
-        var carteiraExistente = investidor.getCarteira();
+        var investimentoExistente = investidor.getInvestimento();
 
-        if(carteiraExistente != null){
-            carteiraExistente.add(carteira);
+        if(!investimentoExistente.isEmpty() && !idAcaoIgual){
+            investimentoExistente.add(investimento);
+            investimentoService.atualizar(idInvestidor, investimento);
         }
+        // else if(!investimentoExistente.isEmpty() && idAcaoIgual){
+        //     investimentoExistente.stream().map(
+        //         x -> x.getAcao().getId() == investimento.getAcao().getId())
+        //         .map(x -> x = investimento);
+        // }
         else
         {
-            List<Carteira> novaCarteira = new ArrayList<Carteira>();
-            novaCarteira.add(carteira);
-            investidor.setCarteira(novaCarteira);
+            List<Investimento> novoInvestimento = new ArrayList<Investimento>();
+            novoInvestimento.add(investimento);
+            investidor.setInvestimento(novoInvestimento);
+            investimentoService.salvar(investimento);
         }
 
-        carteiraService.salvar(carteira);
-        salvar(investidor);
+        
+        cadastrar(investidor);
     }
+
+    public Investidor deposito (Transacao transacao)
+    {
+        var investidor = transacao.getIdInvestidor();
+        var valor = transacao.getValor();
+
+        var localizado = buscarPorId(investidor);
+        var saldoEmConta = localizado.getCarteira();
+        
+        if(saldoEmConta == null)
+        {
+            saldoEmConta = 0.0;
+        }
+
+        if(valor > 0 && saldoEmConta != null)
+        {
+            localizado.setCarteira(saldoEmConta+valor);   
+            transacaoRepository.save(transacao);
+
+            atualizar(investidor, localizado);       
+        }
+      
+        return localizado;
+        
+    }
+
+    public Investidor saque (Transacao transacao)
+    {
+        var investidor = transacao.getIdInvestidor();
+        var valor = transacao.getValor();
+
+        var localizado = buscarPorId(investidor);
+        var saldoEmConta = localizado.getCarteira();
+        
+        if(saldoEmConta == null)
+        {
+            saldoEmConta = 0.0;
+        }
+
+        if(valor > 0 && saldoEmConta > 0)
+        {
+            localizado.setCarteira(saldoEmConta-valor);   
+            transacaoRepository.save(transacao);
+
+            atualizar(investidor, localizado);       
+        }
+        
+        return localizado;
+        
+    }
+
+    
 
 
 

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Compra {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer compraId;
 
     @Column

@@ -29,13 +29,7 @@ public class CompraController {
     @PostMapping
     public Investidor realizarCompraAcao(@RequestBody Compra compra)
     {
-        var investidor = compra.getInvestidorId();
-        var acao = compra.getAcaoId();
-        var quantidade = compra.getQuantidade();
-        // var idAcao = compra.getAcaoId();
-        // var idInvestidor = compra.getInvestidorId();
-        // var quantidade = compra.getQuantidade();
-       Investidor resultado = compraService.comprarAcao(investidor, acao, quantidade);
+        Investidor resultado = compraService.comprarAcao(compra);
 
         return resultado;
     } 

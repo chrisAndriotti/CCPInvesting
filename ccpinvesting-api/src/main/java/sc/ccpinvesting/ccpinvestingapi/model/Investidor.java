@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 public class Investidor {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(nullable = false, length = 30)
@@ -36,10 +36,13 @@ public class Investidor {
     
     @Column(nullable = false)
     private LocalDate nascimento;
+    
+    @Column
+    private Double carteira;
 
     @OneToMany
     @JoinColumn
-    private List<Carteira> carteira;
+    private List<Investimento> investimento;
     
     @OneToOne
     @JoinColumn
@@ -48,12 +51,27 @@ public class Investidor {
     @OneToMany
     @JoinColumn
     private List<ContaBancaria> contaBancaria;
-    
+
+    @OneToOne
+    private Usuario usuario;
     
     public Investidor(){}
     
     public Investidor(Integer id, String nome, String sobrenome, String cpf, String email, String celular,
-    Endereco endereco, List<ContaBancaria> contaBancaria, LocalDate nascimento, List<Carteira> carteira) {
+    LocalDate nascimento, Double carteira) {
+        this.id = id;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;
+        this.email = email;
+        this.celular = celular;       
+        this.nascimento = nascimento;
+        this.carteira = carteira;
+        
+    }
+    
+    public Investidor(Integer id, String nome, String sobrenome, String cpf, String email, String celular,
+    Endereco endereco, List<ContaBancaria> contaBancaria, LocalDate nascimento, Double carteira, List<Investimento> investimento, Usuario usuario) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -64,17 +82,27 @@ public class Investidor {
         this.contaBancaria = contaBancaria;
         this.nascimento = nascimento;
         this.carteira = carteira;
-
+        this.investimento = investimento;
+        this.usuario = usuario;
+        
     }
     
-    public List<Carteira> getCarteira() {
-        return carteira;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCarteira(List<Carteira> carteira) {
-        this.carteira = carteira;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-
+    
+    public List<Investimento> getInvestimento() {
+        return investimento;
+    }
+    
+    public void setInvestimento(List<Investimento> investimento) {
+        this.investimento = investimento;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -132,7 +160,12 @@ public class Investidor {
         this.nascimento = nascimento;
     }
 
-   
-   
-    
+    public Double getCarteira() {
+        return carteira;
+    }
+
+    public void setCarteira(Double carteira) {
+        this.carteira = carteira;
+    }
+
 }

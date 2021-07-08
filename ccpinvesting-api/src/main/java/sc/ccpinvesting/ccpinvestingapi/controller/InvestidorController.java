@@ -2,6 +2,8 @@ package sc.ccpinvesting.ccpinvestingapi.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ public class InvestidorController {
      @Autowired
      InvestidorService investidorService;
 
+    
      @GetMapping
      public List<Investidor> buscarInvestidores()
      {
@@ -34,10 +37,10 @@ public class InvestidorController {
         return investidorService.buscarPorId(id);
      }
 
-     @PostMapping("/salvar")
-     public Investidor salvar(@RequestBody Investidor investidor)
+     @PostMapping("/cadastrar")
+     public Investidor cadastrar(@RequestBody Investidor investidor)
      {   
-         return investidorService.salvar(investidor);
+         return investidorService.cadastrar(investidor);
      }
 
      @PutMapping("/{id}")

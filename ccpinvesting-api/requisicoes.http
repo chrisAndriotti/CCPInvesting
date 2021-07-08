@@ -11,7 +11,7 @@ content-type: application/json
     "email": "mariJane@email.com",
     "celular": "(48)88888-9999",
     "nascimento": "1994-03-13T03:00:00.000+00:00",
-    "carteira": [],
+    "investimento": [],
     "endereco": null,
     "contaBancaria": []
   }

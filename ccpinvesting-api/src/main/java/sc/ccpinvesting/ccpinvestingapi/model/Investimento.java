@@ -9,27 +9,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-    public class Carteira {
+    public class Investimento {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
     @OneToOne
     @JoinColumn
-    private Acao acoes;
+    private Acao acao;
     
     @Column
     private Double valor;
 
-    public Carteira() {
+    @Column(nullable = false)
+    private Boolean ativo;
+
+    public Investimento() {
     }
 
-    public Carteira(Integer Id, Acao acoes, Double valor) {
+    public Investimento(Integer Id, Acao acao, Double valor, Boolean ativo) {
         this.Id = Id;
-        this.acoes = acoes;
+        this.acao = acao;
         this.valor = valor;
+        this.ativo = ativo;
     }
-
     
     public Integer getId() {
         return Id;
@@ -39,12 +42,12 @@ import javax.persistence.OneToOne;
         Id = id;
     }
 
-    public Acao getAcoes() {
-        return acoes;
+    public Acao getAcao() {
+        return acao;
     }
 
-    public void setAcoes(Acao acoes) {
-        this.acoes = acoes;
+    public void setAcao(Acao acao) {
+        this.acao = acao;
     }
 
     public Double getValor() {
@@ -55,10 +58,14 @@ import javax.persistence.OneToOne;
         this.valor = valor;
     }
 
-  
+    public Boolean getAtivo() {
+        return ativo;
+    }
 
- 
-    
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
 }
     
     
