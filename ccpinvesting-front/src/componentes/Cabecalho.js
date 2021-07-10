@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo4 from '../logo4.png';
+import logo4 from '../img/logo4';
 
 
 const Cabecalho = (props) => {

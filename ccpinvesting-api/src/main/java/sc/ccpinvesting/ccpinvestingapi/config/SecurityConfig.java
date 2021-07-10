@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers(HttpMethod.POST,"/fale-conosco/**").permitAll()
             .antMatchers(HttpMethod.GET,"/fale-conosco/**").permitAll()
             .antMatchers(HttpMethod.GET, "/acao/**").permitAll()
-            .antMatchers(HttpMethod.POST, "/acao/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/acao/**").hasAuthority("ADMIN")
             .antMatchers(HttpMethod.POST, "/compra/**").permitAll()
             .antMatchers("/seguranca/login/**").permitAll()
             .antMatchers("/investidor/cadastrar/**").permitAll()
