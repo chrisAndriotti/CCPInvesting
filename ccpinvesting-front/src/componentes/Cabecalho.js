@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo4 from '../img/logo4';
+import logo from '../assets/logo4.png';
 
 
 const Cabecalho = (props) => {
   return (
+    
     <div>
       <div className="jumbotron text-center">
         <h1>CCP Investing</h1>
@@ -41,7 +42,7 @@ const Cabecalho = (props) => {
               <span className="icon-bar"></span>
             </button>
             <Link className="navbar-brand" to="/">
-              <img src={logo4} width="50px"/>
+              <img src={logo} width="50px"/>
             </Link>
           </div>
           <div className="collapse navbar-collapse" id="myNavbar">
@@ -50,23 +51,23 @@ const Cabecalho = (props) => {
                 <Link to="/">INICIO</Link>
               </li>
               <li>
-                <Link to="/negociacoes">NEGOCIAÇÕES</Link>
-              </li>
-              <li>
                 <Link to="/portfolio">PORTFOLIO</Link>
               </li>
               <li>
-                <Link to="/CompraAcoes">COMPRAR AÇÕES</Link>
+                <Link to="/comprar">COMPRAR AÇÕES</Link>
               </li>
               <li>
-                <Link to="/Contato">FALE CONOSCO</Link>
+                <Link to="/contato">FALE CONOSCO</Link>
               </li>
               <li>
-                <Link to="/Login">LOGIN</Link>
+                <Link to="/cadastre-se">CADASTRE-SE</Link>
               </li>
               <li>
+                <Link to="/login">LOGIN</Link>
+              </li>
+              {/* <li>
                 <Link to="/Painel">PAINEL</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -19,8 +19,7 @@ const Inicio = (props) => {
               perfeito pra você.
             </h4>
             <br />
-            <p>bla bla bla</p>
-            <br />
+            
             <button className="btn btn-default btn-lg">Fale conosco</button>
           </div>
           {/* (3) Elemento 3 */}
@@ -36,14 +35,14 @@ const Inicio = (props) => {
             <span className="glyphicon glyphicon-globe logo "></span>
           </div>
           <div className="col-sm-8">
-            <h2>Our Values</h2>
+            <h2>Nossos valores</h2>
             <br />
             <h4>
-              <strong>MISSÃO:</strong> Missão dada missão cumprida
+              <strong>MISSÃO</strong> dada missão cumprida
             </h4>
             <br />
             <p>
-              <strong>VISÃO:</strong> bla blá e bláaaaa.
+              <strong>VISÃO:</strong> dos ói.
             </p>
           </div>
         </div>

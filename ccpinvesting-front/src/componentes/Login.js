@@ -21,13 +21,14 @@ const StyledTextField = withStyles((theme) => ({
 
 const StyledGrid = withStyles((theme) => ({
   root: {
-    // margin: '0 250px 0 100px',
+    margin: '0 250px 0',
+    padding: '10px'
   }
 }))(Grid);
 
 const StyledButton = withStyles((theme) => ({
   root: {
-    font: '20px'
+    margin: '50px 150px 0',
   }
 
 }))(Button);
@@ -43,21 +44,23 @@ function Login() {
     <StyledContainer>
       <StyledGrid container justify="center" item xs={8}>
 
-        <Grid item xs={10}>
+        <Grid item xs={7}>
           <FormControl fullWidth>
             <StyledTextField id="standard-basic" label="Email" color='secondary' />
           </FormControl>
         </Grid>
         <StyledGrid></StyledGrid>
 
-        <Grid item xs={10}>
+        <Grid item xs={7}>
           <FormControl fullWidth>
             <StyledTextField id="standard-basic" label="Senha"/>
           </FormControl>
         </Grid>
 
         <StyledGrid item xs={10}>
-          <StyledButton className="btn">Iniciar Sessão</StyledButton>
+          <StyledButton>
+            <Button className="btn">Iniciar Sessão</Button>
+          </StyledButton>
         </StyledGrid>
 
       </StyledGrid>

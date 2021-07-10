@@ -18,6 +18,8 @@ h4 {
   font-weight: 400;
   margin-bottom: 30px;
 }
+
+
 .jumbotron {
   background-color: #f4511e;
   color: #fff;
@@ -99,21 +101,23 @@ h4 {
   border-bottom-right-radius: 0px;
 } */
 
-.info-item {
-  background-color: white !important;
-  text-align: center;
-}
-
-.table .btn, .primaryBtn {
-  /* margin: 15px 0; */
+.brn{
   background-color: #f4511e;
   color: #fff;
   font-weight: 700;
 }
 
+.info-item {
+  background-color: white !important;
+  text-align: center;
+}
 
-
-
+.table .btn {
+  /* margin: 15px 0; */
+  background-color: #f4511e;
+  color: #fff;
+  font-weight: 700;
+}
 
 .table .btn:hover {
   border: 0.5px solid #f4511e;
