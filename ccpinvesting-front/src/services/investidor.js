@@ -20,7 +20,7 @@ export const buscarInvestidorPorId = id => {
 }
 
 export const cadastrarInvestidor = investidor => {
-    return axios.post(BASE_URL, investidor)
+return axios.post(`${BASE_URL}/cadastrar`, investidor)
         .catch(error => {
             throw error;
         })

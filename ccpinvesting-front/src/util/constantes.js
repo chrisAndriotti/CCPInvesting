@@ -27,3 +27,8 @@ export const INVESTIDOR_INICIAL = {
         senha: ""
     }
 };
+
+export const LOGIN_INICIAL = {
+    login: "",
+    senha: ""
+  }

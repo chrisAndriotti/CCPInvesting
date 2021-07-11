@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import sc.ccpinvesting.ccpinvestingapi.model.Enum.EstadosEnum;
 
 @Entity
 public class Endereco {
@@ -28,12 +27,12 @@ public class Endereco {
     private String cidade;
 
     @Column(nullable = false, length =  15)
-    private EstadosEnum estado;
+    private String estado;
 
     @Column(nullable = false, length = 10)
     private String pais;
     
-    public Endereco(String rua, String bairro, Integer numero, String cidade, EstadosEnum estado, String pais) {
+    public Endereco(String rua, String bairro, Integer numero, String cidade, String estado, String pais) {
         this.rua = rua;
         this.bairro = bairro;
         this.numero = numero;
@@ -66,12 +65,15 @@ public class Endereco {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    public EstadosEnum getEstado() {
+  
+    public String getEstado() {
         return estado;
     }
-    public void setEstado(EstadosEnum estado) {
+
+    public void setEstado(String estado) {
         this.estado = estado;
     }
+
     public String getPais() {
         return pais;
     }

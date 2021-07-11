@@ -34,7 +34,7 @@ function* buscarInvestidorPorId(){
 }
 
 function* incluirInvestidor(action){
-    yield call(InvestidorAPI.incluirInvestidor, action.payload);
+    yield call(InvestidorAPI.cadastrarInvestidor, action.payload);
 }
 
 function* excluirInvestidor(action){

@@ -36,6 +36,24 @@ public class Investidor {
     
     @Column(nullable = false)
     private LocalDate nascimento;
+
+    @Column(nullable = false, length = 50)
+    private String rua;
+
+    @Column(nullable = false, length = 30)
+    private String bairro;
+   
+    @Column(nullable = false, length = 10)
+    private Integer numero;
+
+    @Column(nullable = false, length = 25)
+    private String cidade;
+
+    @Column(nullable = false, length =  15)
+    private String estado;
+
+    @Column(nullable = false, length = 10)
+    private String pais;
     
     @Column
     private Double carteira;
@@ -44,9 +62,9 @@ public class Investidor {
     @JoinColumn
     private List<Investimento> investimento;
     
-    @OneToOne
-    @JoinColumn
-    private Endereco endereco;
+    // @OneToOne
+    // @JoinColumn
+    // private Endereco endereco;
     
     @OneToMany
     @JoinColumn
@@ -71,22 +89,27 @@ public class Investidor {
     }
     
     public Investidor(Integer id, String nome, String sobrenome, String cpf, String email, String celular,
-    Endereco endereco, List<ContaBancaria> contaBancaria, LocalDate nascimento, Double carteira, List<Investimento> investimento, Usuario usuario) {
+            LocalDate nascimento, String rua, String bairro, Integer numero, String cidade, String estado, String pais,
+            Double carteira, List<Investimento> investimento, List<ContaBancaria> contaBancaria, Usuario usuario) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
         this.email = email;
         this.celular = celular;
-        this.endereco = endereco;
-        this.contaBancaria = contaBancaria;
         this.nascimento = nascimento;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
         this.carteira = carteira;
         this.investimento = investimento;
+        this.contaBancaria = contaBancaria;
         this.usuario = usuario;
-        
     }
-    
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -139,12 +162,7 @@ public class Investidor {
     public void setCelular(String celular) {
         this.celular = celular;
     }
-    public Endereco getEndereco() {
-        return endereco;
-    }
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+  
     public List<ContaBancaria> getContaBancaria() {
         return contaBancaria;
     }
@@ -167,5 +185,55 @@ public class Investidor {
     public void setCarteira(Double carteira) {
         this.carteira = carteira;
     }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    
 
 }

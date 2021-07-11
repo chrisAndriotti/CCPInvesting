@@ -1,0 +1,1 @@
+export const ENVIAR_LOGIN = 'ENVIAR_LOGIN';

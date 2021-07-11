@@ -10,6 +10,7 @@ import sc.ccpinvesting.ccpinvestingapi.model.Investimento;
 import sc.ccpinvesting.ccpinvestingapi.model.Permissao;
 import sc.ccpinvesting.ccpinvestingapi.model.Transacao;
 import sc.ccpinvesting.ccpinvestingapi.model.Usuario;
+import sc.ccpinvesting.ccpinvestingapi.model.Endereco;
 import sc.ccpinvesting.ccpinvestingapi.model.Investidor;
 import sc.ccpinvesting.ccpinvestingapi.repository.InvestidorRepository;
 import sc.ccpinvesting.ccpinvestingapi.repository.PermissaoRepository;
@@ -46,7 +47,7 @@ public class InvestidorService {
     public Investidor cadastrar(Investidor investidor)
     {
         Usuario usuario = new Usuario();
-        usuario.setLogin(investidor.getUsuario().getLogin());
+        usuario.setLogin(investidor.getUsuario().getUsername());
         usuario.setSenha(investidor.getUsuario().getSenha());
 
         Permissao permissao = permissaoRepository.findById(2).get();

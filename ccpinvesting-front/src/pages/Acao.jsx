@@ -1,3 +1,0 @@
-const Acao = (props) => {
-
-}

@@ -9,7 +9,7 @@ import Rodape from './componentes/Rodape';
 // import Negociacoes from './componentes/Negociacoes';
 import Portifolio from './componentes/Portifolio';
 import Contato from './componentes/Contato';
-import Login from './componentes/Login';
+import Login from './pages/login/Login';
 import Painel from './componentes/Painel';
 import CompraAcoes from './pages/compraAcoes/CompraAcoes';
 import CadastroInvestidor from './pages/cadastroInvestidor/CadastroInvestidor'

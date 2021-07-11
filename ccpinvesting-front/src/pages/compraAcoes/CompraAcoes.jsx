@@ -44,7 +44,7 @@ const CompraAcoes = props => {
 
   const carregarAcoes = async () => {
     // const acoes = await AcaoAPI.buscarAcoes();
-    dispatch(buscarAcoes());
+    await dispatch(buscarAcoes());
   }
 
   const deleteAcao = async (id) => {

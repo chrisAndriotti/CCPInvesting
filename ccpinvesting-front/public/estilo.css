@@ -101,10 +101,29 @@ h4 {
   border-bottom-right-radius: 0px;
 } */
 
-.brn{
+.btn{
   background-color: #f4511e;
   color: #fff;
   font-weight: 700;
+}
+
+.btn:hover {
+  border: 0.5px solid #f4511e;
+  background-color: #fff !important;
+  color: #f4511e;
+}
+
+.btnLogin{
+  background-color: #f4511e;
+  color: #fff;
+  font-weight: 700;
+  width: 100%;
+}
+
+.btnLogin:hover {
+  border: 0.5px solid #f4511e;
+  background-color: #fff !important;
+  color: #f4511e;
 }
 
 .info-item {

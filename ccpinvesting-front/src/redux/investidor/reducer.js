@@ -6,7 +6,7 @@ const InvestidorReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ARMAZENAR_INVESTIDOR:
             console.log("Entrou no Reducer investidor", action.payload);
-            return armazenarAcao(state, action);
+            return armazenarInvestidor(state, action);
         case SETAR_INVESTIDOR_ATUAL:
             return { ...state, investidorAtual: action.investidorAtual };
         default: {
@@ -16,7 +16,7 @@ const InvestidorReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-const armazenarAcao = (state, action) => {
+const armazenarInvestidor = (state, action) => {
     return { ...state, investidores: action.payload }
 }
 
