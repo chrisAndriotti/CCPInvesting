@@ -67,8 +67,9 @@ const InvestidorSchema = yup.object().shape({
     login: yup.string().required('Informe um usuário para login').max(50, 'O campo deve ter no máximo 50 carateres'),
     senha: yup.string().required('Informe uma senha').max(50, 'O campo deve ter no máximo 50 carateres'),
     // senha2: yup.string().required('Repita a senha').max(50, 'O campo deve ter no máximo 50 carateres'),
-    nome: yup.string().required('Informe o seu nome'),
-    sobrenome: yup.string().required('Informe seu sobrenome')
+    nome: yup.string().required('Informe o seu nome').max(25, 'Informe somente o primeiro nome'),
+    sobrenome: yup.string().required('Informe seu sobrenome'),
+    cpf: yup.string().required('Informe seu CPF').max(11, 'Digite os 11 numeros do CPF sem os pontos.')
 });
 
 const Cadastro = props => {
@@ -92,7 +93,7 @@ const Cadastro = props => {
             <Form className={classes.container}>
                 <Grid container  >
                     <div className={classes.divs}>
-                        <h3>Cadastro</h3>
+                        <h3>Dados para o login</h3>
 
                         <StyledTextField
                             className={classes.textField}

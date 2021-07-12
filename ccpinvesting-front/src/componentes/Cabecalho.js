@@ -31,19 +31,22 @@ const Cabecalho = (props) => {
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container">
           <div className="navbar-header">
+            <Link className="navbar-brand" to="/">
+              <img src={logo} width="50px"/>
+            </Link>
             <button
               type="button"
               className="navbar-toggle"
               data-toggle="collapse"
               data-target="#myNavbar"
+              aria-controls="myNavbar"
+              aria-expanded="false"
             >
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link className="navbar-brand" to="/">
-              <img src={logo} width="50px"/>
-            </Link>
+            
           </div>
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav navbar-right">
@@ -54,20 +57,20 @@ const Cabecalho = (props) => {
                 <Link to="/portfolio">PORTFOLIO</Link>
               </li>
               <li>
-                <Link to="/comprar">COMPRAR AÇÕES</Link>
+                <Link to="/acao">COMPRAR AÇÕES</Link>
               </li>
               <li>
-                <Link to="/contato">FALE CONOSCO</Link>
+                <Link to="/fale-conosco/salvar">FALE CONOSCO</Link>
               </li>
               <li>
-                <Link to="/cadastre-se">CADASTRE-SE</Link>
+                <Link to="/investidor/cadastrar">CADASTRE-SE</Link>
               </li>
               <li>
-                <Link to="/login">LOGIN</Link>
+                <Link to="/seguranca/login">LOGIN</Link>
               </li>
-              {/* <li>
-                <Link to="/Painel">PAINEL</Link>
-              </li> */}
+              <li>
+                <Link to="/perfil">PERFIL</Link>
+              </li>
             </ul>
           </div>
         </div>

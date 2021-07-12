@@ -11,8 +11,10 @@ import Portifolio from './componentes/Portifolio';
 import Contato from './componentes/Contato';
 import Login from './pages/login/Login';
 import Painel from './componentes/Painel';
-import CompraAcoes from './pages/compraAcoes/CompraAcoes';
+// import CompraAcoes from './pages/compraAcoes/CompraAcoes';
 import CadastroInvestidor from './pages/cadastroInvestidor/CadastroInvestidor'
+import Listagem from './acao/Listagem';
+import Perfil from './investidor/Perfil';
 
 class App extends Component {
   render() {
@@ -25,11 +27,11 @@ class App extends Component {
             <Route path="/" exact component={Inicio} />
             {/* <Route path="/negociacoes" component={Negociacoes} /> */}
             <Route path="/portifolio" component={Portifolio} />
-            <Route path="/comprar" component={CompraAcoes} />
-            <Route path="/contato" component={Contato} />
-            <Route path="/cadastre-se" component={CadastroInvestidor} />
-            <Route path="/login" component={Login} />
-            <Route path="/painel" component={Painel} />
+            <Route path="/acao" component={Listagem} />
+            <Route path="/fale-conosco/salvar" component={Contato} />
+            <Route path="/investidor/cadastrar" component={CadastroInvestidor} />
+            <Route path="/seguranca/login" component={Login} />
+            <Route path="/perfil" component={Perfil} />
 
             <Rodape />
           </div>

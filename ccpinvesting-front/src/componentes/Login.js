@@ -1,4 +1,4 @@
-import { Grid, makeStyles, TextField } from '@material-ui/core';
+import { Button, Grid, makeStyles, TextField } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import '../index.css';
@@ -92,6 +92,7 @@ const Login = props =>{
           <Grid className={classes.divs}>
             <button 
             className="btn btnLogin"
+            color="#f4511e"
             type="submit"
             disabled={isSubmitting}
             >
@@ -101,10 +102,13 @@ const Login = props =>{
           </Grid>
         </Grid>
       </Form>
-
+      
     )}}  
+    
     />
+    
   )
+  
 }
 
 export default Login;

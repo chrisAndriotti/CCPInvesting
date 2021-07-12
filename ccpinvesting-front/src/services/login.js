@@ -8,4 +8,5 @@ export const cadastrarInvestidor = login => {
             .catch(error => {
                 throw error;
             })
+    
 }
