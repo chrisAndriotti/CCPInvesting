@@ -4,6 +4,7 @@ import {PATH_BACKEND} from './caminhos';
 const BASE_URL = `${PATH_BACKEND}/seguranca/login`;
 
 export const logar = login => {
+    console.log("foi pra api")
     return axios.post(BASE_URL, login)
             .catch(error => {
                 throw error;

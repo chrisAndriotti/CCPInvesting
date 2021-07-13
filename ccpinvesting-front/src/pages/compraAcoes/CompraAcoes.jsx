@@ -67,7 +67,7 @@ const CompraAcoes = props => {
                       <StyledTableCellAcaoNome width="20%" align="center">{acao.nome}</StyledTableCellAcaoNome>
                       <TableCell width="30%" align="center">{acao.descricao}</TableCell>
                       <TableCell width="20%" align="center">{acao.horaAtualizacao}</TableCell>
-                      <StyledTableCellAcaoValor width="20%" align="center">BRL {acao.preco}</StyledTableCellAcaoValor>
+                      <StyledTableCellAcaoValor width="20%" align="center">{acao.preco} BRL </StyledTableCellAcaoValor>
                       <TableCell>
                           <Button className="btn" > {/*onClick={() => setOpen(!open)}  */}
                           {/* {open ? <KeyboardArrowUpIcon/> : ""} */}

@@ -64,8 +64,10 @@ const StyledTextField = withStyles((theme) =>({
 }))(TextField)
 
 const InvestidorSchema = yup.object().shape({
-    login: yup.string().required('Informe um usuário para login').max(50, 'O campo deve ter no máximo 50 carateres'),
-    senha: yup.string().required('Informe uma senha').max(50, 'O campo deve ter no máximo 50 carateres'),
+    usuario: yup.object().shape({ 
+        login: yup.string().required('Informe um usuário para login').max(50, 'O campo deve ter no máximo 50 carateres'),
+        senha: yup.string().required('Informe uma senha').max(50, 'O campo deve ter no máximo 50 carateres')
+    }),
     // senha2: yup.string().required('Repita a senha').max(50, 'O campo deve ter no máximo 50 carateres'),
     nome: yup.string().required('Informe o seu nome').max(25, 'Informe somente o primeiro nome'),
     sobrenome: yup.string().required('Informe seu sobrenome'),
@@ -97,26 +99,26 @@ const Cadastro = props => {
 
                         <StyledTextField
                             className={classes.textField}
-                            name="login"
+                            name="usuario.login"
                             label="Usuário"
                             type="text"
-                            value={values.login}
+                            value={values.usuario.login}
                             error={touched.login && errors.login}
                             helperText={touched.login && errors.login}
-                            onFocus={() => setFieldTouched('login')}
-                            onChange={event => setFieldValue('login', event.target.value)}
+                            onFocus={() => setFieldTouched('usuario.login')}
+                            onChange={event => setFieldValue('usuario.login', event.target.value)}
                         />
 
                         <StyledTextField
                             className={classes.textField}
-                            name="senha"
+                            name="usuario.senha"
                             label="Senha"
                             type="password"
                             value={values.senha}
                             error={touched.senha && errors.senha}
                             helperText={touched.senha && errors.senha}
-                            onFocus={() => setFieldTouched('senha')}
-                            onChange={event => setFieldValue('senha', event.target.value)}
+                            onFocus={() => setFieldTouched('usuario.senha')}
+                            onChange={event => setFieldValue('usuario.senha', event.target.value)}
                         />
                         
                         {/* <StyledTextField
