@@ -34,14 +34,15 @@ public class SecurityController {
         try{
             UserDetails usuario = autenticacaoUsuarioService.loadUserByUsername(dadosAutenticacao.getLogin());
             String senhaUsuario = usuario.getPassword();
-
+            
+            
             String senhaInputada = dadosAutenticacao.getSenha();
 
             // if(usuario == null || !new BCryptPasswordEncoder().matches(senhaInputada, senhaUsuario)) {
             if(usuario == null || !senhaInputada.contentEquals(senhaUsuario)  ){
                 return "Usuário ou senha inválido";
             }
-
+            //recuperar o id para retornar junto ao token
             return tokenHelper.gerarToken(usuario);
         }
         catch(UsernameNotFoundException exception){

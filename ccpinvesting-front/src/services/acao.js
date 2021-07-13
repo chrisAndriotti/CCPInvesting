@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './auth'
 import {PATH_BACKEND} from './caminhos';
 
 const BASE_URL = `${PATH_BACKEND}/acao`;

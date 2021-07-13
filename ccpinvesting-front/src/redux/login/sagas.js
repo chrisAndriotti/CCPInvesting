@@ -13,7 +13,7 @@ function* watchLogar(){
 function* logar(action){
     const token = yield call(LoginAPI.logar, action.payload);
     console.log("token: ",token)
-    localStorage.setItem("usuario", JSON.stringify(token.data));
+    localStorage.setItem("ccp-token", token.data);
     // yield put({ type: types.RECUPERAR_TOKEN, payload: token})
 }
 
