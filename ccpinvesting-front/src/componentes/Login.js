@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divs: {
     // marginLeft: theme.spacing(4),
-    padding: '20px',
+    padding: '10px',
     justifyContent: 'center',
     alignItems: 'center',
     // background: 'green'
@@ -26,8 +26,12 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     // background:"red",
     width: '300px',
-    fontSize: 22
   },
+  divBotao: {
+    padding: '50px 30px 0 ',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
 }))
       
@@ -89,7 +93,7 @@ const Login = props =>{
           </Grid>
 
 
-          <Grid className={classes.divs}>
+          <Grid className={classes.divBotao}>
             <button 
             className="btn btnLogin"
             color="#f4511e"

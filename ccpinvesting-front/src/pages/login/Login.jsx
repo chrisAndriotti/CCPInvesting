@@ -1,18 +1,11 @@
 import { useDispatch } from "react-redux";
 import Login from "../../componentes/Login";
-import { buscarToken, retornoOk } from "../../redux/login/actions"
-import Alert from '@material-ui/lab/Alert';
-import { useEffect } from "react";
+import { buscarToken } from "../../redux/login/actions"
 
 const LoginPage = props => {
    
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      console.log("success")
-      dispatch(retornoOk());
-  }, []);
-   
     const logar =  login => {
          dispatch(buscarToken(login))
     }

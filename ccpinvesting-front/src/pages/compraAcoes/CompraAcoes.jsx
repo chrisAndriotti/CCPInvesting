@@ -61,7 +61,7 @@ const CompraAcoes = props => {
             <TableContainer component={Paper}>
               <Table size="medium">
                 <TableBody >
-
+                  
                   {acoes.map(acao =>([
                     <TableRow key={acao.id} className="table">
                       <StyledTableCellAcaoNome width="20%" align="center">{acao.nome}</StyledTableCellAcaoNome>

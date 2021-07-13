@@ -1,9 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo4.png';
+import { usuarioLogado } from '../redux/login/selectors';
 
 
 const Cabecalho = (props) => {
+
+  const isUsuarioLogado = useSelector(usuarioLogado);
+  
+
   return (
     
     <div>
@@ -62,15 +68,26 @@ const Cabecalho = (props) => {
               <li>
                 <Link to="/fale-conosco/salvar">FALE CONOSCO</Link>
               </li>
+
+              {!isUsuarioLogado &&
               <li>
                 <Link to="/investidor/cadastrar">CADASTRE-SE</Link>
-              </li>
-              <li>
-                <Link to="/seguranca/login">LOGIN</Link>
-              </li>
+              </li> 
+              }
+
+              {!isUsuarioLogado && 
+                
+                <li>
+                  <Link to="/seguranca/login">LOGIN</Link>
+                </li>
+              }
+
+              {isUsuarioLogado &&
               <li>
                 <Link to="/perfil">PERFIL</Link>
               </li>
+              }
+              
             </ul>
           </div>
         </div>

@@ -3,17 +3,18 @@
 import { ENVIAR_LOGIN, API_SUCCESS, API_ERROR, LOGOUT } from "./types";
 
 const INITIAL_STATE = {
-    isAuthUser: !!localStorage.getItem("user"),
-    usuario: JSON.parse(localStorage.getItem("user")) || {},
+    isAuthUser: !!localStorage.getItem("ccp-investing"),
+    'ccp-investing': JSON.parse(localStorage.getItem("ccp-investing")) || {},
     isLoading: false,
     error: null
 }
 const LoginReducer = (state = INITIAL_STATE, action) =>{
 
     switch (action.type) {
-      // case API_SUCCESS:
-      //   localStorage.setItem("usuario", JSON.stringify(action.payload.usuario));
-      //   return { ...state, isAuthUser: true, usuario: action.payload.usuario };
+      case API_SUCCESS:
+        console.log('API_SUCESS reducer')
+        localStorage.getItem("ccp-token"); //TODO recuperar o id do cara
+        return { ...state, isAuthUser: true, 'ccp-investing': action.payload };
   
       case API_ERROR:
         return { ...state, error: action.payload };
@@ -23,8 +24,8 @@ const LoginReducer = (state = INITIAL_STATE, action) =>{
         return { ...state, isLoading: action.payload };
   
       case LOGOUT:
-        localStorage.removeItem("user");
-        return { ...state, isAuthUser: false, usuario: {} };
+        localStorage.removeItem("ccp-token");
+        return { ...state, isAuthUser: false, 'ccp-investing': {} };
   
       default:
        return state;

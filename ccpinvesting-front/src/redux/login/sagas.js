@@ -14,7 +14,7 @@ function* logar(action){
     const token = yield call(LoginAPI.logar, action.payload);
     console.log("token: ",token)
     localStorage.setItem("ccp-token", token.data);
-    // yield put({ type: types.RECUPERAR_TOKEN, payload: token})
+    yield put({ type: types.API_SUCCESS, payload: action.payload.login})
 }
 
 // function* recuperarToken(action){
