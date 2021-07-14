@@ -19,6 +19,14 @@ export const buscarInvestidorPorId = id => {
         })
 }
 
+export const buscarInvestidorPorLogin = login => {
+    return axios.get(`${BASE_URL}/buscar-usuario/${login}`)
+        .then(response => response.data)
+        .catch(error => {
+            throw error;
+        })
+}
+
 export const cadastrarInvestidor = investidor => {
 return axios.post(`${BASE_URL}/cadastrar`, investidor)
         .catch(error => {

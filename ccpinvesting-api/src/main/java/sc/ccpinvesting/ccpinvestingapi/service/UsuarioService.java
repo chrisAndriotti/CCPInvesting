@@ -25,16 +25,9 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    // public Investidor buscarPorLogin(String login){
-    //     var buscarUsuario = usuarioRepository.findByLogin(login).get().getId();
-    //     var investidorLocalizado = investidorService.buscarTodos()
-    //                             .stream()
-    //                             .filter(i -> i.getUsuario().getId() == buscarUsuario)
-    //                             .findFirst()
-    //                             .get();
-
-    //     return investidorLocalizado;    
-    // } 
+    public Usuario buscarUsuario(String login){
+        return usuarioRepository.findByLogin(login).get();
+    }
 
     
 

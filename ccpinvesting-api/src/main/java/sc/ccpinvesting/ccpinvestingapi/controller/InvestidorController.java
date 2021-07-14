@@ -10,48 +10,59 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import sc.ccpinvesting.ccpinvestingapi.model.Investidor;
 import sc.ccpinvesting.ccpinvestingapi.service.InvestidorService;
+import sc.ccpinvesting.ccpinvestingapi.service.UsuarioService;
 
 @RestController 
 @RequestMapping("/investidor")
 public class InvestidorController {
 
-     @Autowired
-     InvestidorService investidorService;
+      @Autowired
+      InvestidorService investidorService;
+
+      @Autowired
+      UsuarioService usuarioService;
 
     
-     @GetMapping
-     public List<Investidor> buscarInvestidores()
-     {
-        return investidorService.buscarTodos();
-     }
+      @GetMapping
+      public List<Investidor> buscarInvestidores()
+      {
+         return investidorService.buscarTodos();
+      }
 
-     @GetMapping("/{id}")
-     public Investidor buscarPorId(@PathVariable Integer id)
-     {
-        return investidorService.buscarPorId(id);
-     }
+      @GetMapping("/{id}")
+      public Investidor buscarPorId(@PathVariable Integer id)
+      {
+         return investidorService.buscarPorId(id);
+      }
 
-     @PostMapping("/cadastrar")
-     public Investidor cadastrar(@RequestBody Investidor investidor)
-     {   
+      @GetMapping("/buscar-usuario/{login}")
+      public Investidor buscarPorLogin(@PathVariable String login)
+      {
+         return investidorService.buscarPorLogin(login);
+      }
+
+      @PostMapping("/cadastrar")
+      public Investidor cadastrar(@RequestBody Investidor investidor)
+      {   
          return investidorService.cadastrar(investidor);
-     }
+      }
 
-     @PutMapping("/{id}")
-     public Investidor atualizaInvestidor(@RequestBody Investidor investidor, @PathVariable Integer id)
-     {
-        return investidorService.atualizar(id, investidor);
-     }
+      @PutMapping("/{id}")
+      public Investidor atualizaInvestidor(@RequestBody Investidor investidor, @PathVariable Integer id)
+      {
+         return investidorService.atualizar(id, investidor);
+      }
 
-     @DeleteMapping("/{id}")
-     void deletarInvestidor (@PathVariable Integer id)
-     {
-          investidorService.delete(id); 
-     }
+      @DeleteMapping("/{id}")
+      void deletarInvestidor (@PathVariable Integer id)
+      {
+            investidorService.delete(id); 
+      }
 }
 
 

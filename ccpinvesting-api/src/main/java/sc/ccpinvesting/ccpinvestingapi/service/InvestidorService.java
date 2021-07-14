@@ -10,7 +10,6 @@ import sc.ccpinvesting.ccpinvestingapi.model.Investimento;
 import sc.ccpinvesting.ccpinvestingapi.model.Permissao;
 import sc.ccpinvesting.ccpinvestingapi.model.Transacao;
 import sc.ccpinvesting.ccpinvestingapi.model.Usuario;
-import sc.ccpinvesting.ccpinvestingapi.model.Endereco;
 import sc.ccpinvesting.ccpinvestingapi.model.Investidor;
 import sc.ccpinvesting.ccpinvestingapi.repository.InvestidorRepository;
 import sc.ccpinvesting.ccpinvestingapi.repository.PermissaoRepository;
@@ -43,6 +42,19 @@ public class InvestidorService {
     {
         return investidorRepository.findById(id).get();
     }
+
+    public Investidor buscarPorLogin(String login){
+        var buscarUsuario = usuarioService.buscarUsuario(login);
+        var investidorLocalizado = buscarTodos()
+                                    .stream()
+                                    .filter(i -> i.getUsuario() == buscarUsuario)
+                                    .findFirst()
+                                    .get();
+                                    
+                                    
+
+        return investidorLocalizado;    
+    } 
 
     public Investidor cadastrar(Investidor investidor)
     {
@@ -125,7 +137,6 @@ public class InvestidorService {
 
             atualizar(investidor, localizado);       
         }
-      
         return localizado;
         
     }
@@ -154,9 +165,5 @@ public class InvestidorService {
         return localizado;
         
     }
-
-    
-
-
 
 }

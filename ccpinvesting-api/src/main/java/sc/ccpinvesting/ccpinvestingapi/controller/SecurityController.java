@@ -58,9 +58,4 @@ public class SecurityController {
 
     }
 
-    @GetMapping("/{login}")
-    public Investidor buscarPorLogin(@PathVariable String login){
-        return usuarioService.buscarPorLogin(login);
-    }
-    
 }

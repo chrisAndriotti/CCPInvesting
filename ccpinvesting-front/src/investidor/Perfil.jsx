@@ -46,18 +46,18 @@ const Perfil = props => {
     const investidor = useSelector(loginUsuario)
 
     // useEffect(() =>{
-    //     carregarInvestidor();
+    //     buscarInvestidor();
     // }, []);
 
-    const buscarPorId = async (id) => {
-        // const acoes = await AcaoAPI.buscarAcoes();
-        await dispatch(buscarInvestidorPorId(id));
-    }
+    // const buscarInvestidor = async () => {
+    //     // const acoes = await AcaoAPI.buscarAcoes();
+    //     await dispatch(buscarInvestidorPorLogin());
+    // }
 
     return (
 
         <Grid className={classes.container} >
-            <Button lable="Buscar" onClick={() => buscarPorId}></Button>
+            <Button lable="Buscar" ></Button>
             <div>
                 <div className={classes.divs} >
                     <h3>Dados de login</h3>
