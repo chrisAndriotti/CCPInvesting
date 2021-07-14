@@ -1,8 +1,11 @@
-import { Button, Grid, makeStyles, TextField } from '@material-ui/core';
+import { Grid, makeStyles, TextField } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import '../index.css';
 import * as yup from 'yup';
+import { usuarioLogado } from '../redux/login/selectors'
+import { useSelector } from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const LOGIN_INICIAL = {
   login: "",
@@ -42,6 +45,9 @@ const LoginSchema = yup.object().shape({
 
 const Login = props =>{
   const classes = useStyles();
+  const history = useHistory();
+
+  const isUsuarioLogado = useSelector(usuarioLogado);
 
   const enviarLogin = (login, acoes) => {
     console.log("login",login);
@@ -49,6 +55,11 @@ const Login = props =>{
     props.enviar(login);
     acoes.resetForm();
   }
+  
+  if(isUsuarioLogado){
+    history.push("/acao")
+  }
+  
 
   return (
     <Formik

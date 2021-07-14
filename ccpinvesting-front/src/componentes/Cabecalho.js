@@ -1,13 +1,24 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import logo from '../assets/logo4.png';
+import { logout } from '../redux/login/actions';
 import { usuarioLogado } from '../redux/login/selectors';
 
 
 const Cabecalho = (props) => {
 
   const isUsuarioLogado = useSelector(usuarioLogado);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const usuarioLogout = () => {
+    dispatch(logout());
+  }
+
+  if (!isUsuarioLogado){
+    history.push("/inicio");
+  }
   
 
   return (
@@ -57,7 +68,7 @@ const Cabecalho = (props) => {
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <Link to="/">INICIO</Link>
+                <Link to="/inicio">INICIO</Link>
               </li>
               <li>
                 <Link to="/portfolio">PORTFOLIO</Link>
@@ -82,12 +93,20 @@ const Cabecalho = (props) => {
                 </li>
               }
 
+           
               {isUsuarioLogado &&
               <li>
                 <Link to="/perfil">PERFIL</Link>
               </li>
               }
-              
+
+              {isUsuarioLogado && 
+                <li>
+                 <Link onClick={() => usuarioLogout()}>LOGOUT</Link>
+                </li>
+              }
+
+
             </ul>
           </div>
         </div>

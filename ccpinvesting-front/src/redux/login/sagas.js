@@ -17,11 +17,6 @@ function* logar(action){
     yield put({ type: types.API_SUCCESS, payload: action.payload.login})
 }
 
-// function* recuperarToken(action){
-
-// }
-
-
 export default function* loginSaga(){
     yield all([
         watchLogar(),

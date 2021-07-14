@@ -24,9 +24,9 @@ class App extends Component {
           <div className="App">
             <Cabecalho />
 
-            <Route path="/" exact component={Inicio} />
+            <Route path="/inicio" exact component={Inicio} />
             {/* <Route path="/negociacoes" component={Negociacoes} /> */}
-            <Route path="/portifolio" component={Portifolio} />
+            <Route path="/portfolio" component={Portifolio} />
             <Route path="/acao" component={Listagem} />
             <Route path="/fale-conosco/salvar" component={Contato} />
             <Route path="/investidor/cadastrar" component={CadastroInvestidor} />

@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+
 import { Button, Container, Grid, makeStyles, Table, TableBody, TableContainer, TableHead, TextField, withStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { getInvestidorAtual } from "../redux/investidor/selectors";
 import { buscarInvestidorPorId } from "../services/investidor";
-import { Form } from 'formik';
-import { cadastrarInvestidor } from '../redux/investidor/actions';
+import { loginUsuario } from '../redux/login/selectors';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -45,18 +43,16 @@ const Perfil = props => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const investidor = useSelector(getInvestidorAtual)
+    const investidor = useSelector(loginUsuario)
 
     // useEffect(() =>{
     //     carregarInvestidor();
-    //   }, []);
+    // }, []);
 
     const buscarPorId = async (id) => {
         // const acoes = await AcaoAPI.buscarAcoes();
         await dispatch(buscarInvestidorPorId(id));
     }
-
-   
 
     return (
 
