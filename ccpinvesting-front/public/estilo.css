@@ -144,6 +144,10 @@ h4 {
   color: #f4511e;
 }
 
+.foto-inicio{
+  border-radius: 50%;
+}
+
 .navbar {
   margin-bottom: 0;
   background-color: #f4511e;

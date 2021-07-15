@@ -1,6 +1,7 @@
 import { Grid, makeStyles, TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import { Form, Formik } from "formik";
+import  InputMask  from "react-input-mask";
 
 
 import * as yup from 'yup';
@@ -54,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
       botao: {
         padding: '50px 0 0',
         marginLeft: theme.spacing()
+      },
+      resize:{
+        fontSize:15
       }
 }));
 
@@ -71,7 +75,7 @@ const InvestidorSchema = yup.object().shape({
     // senha2: yup.string().required('Repita a senha').max(50, 'O campo deve ter no máximo 50 carateres'),
     nome: yup.string().required('Informe o seu nome').max(25, 'Informe somente o primeiro nome'),
     sobrenome: yup.string().required('Informe seu sobrenome'),
-    cpf: yup.string().required('Informe seu CPF').max(11, 'Digite os 11 numeros do CPF sem os pontos.')
+    cpf: yup.string().required('Informe seu CPF').max(11, 'Digite os 11 numeros do CPF.')
 });
 
 const Cadastro = props => {
@@ -107,6 +111,11 @@ const Cadastro = props => {
                             helperText={touched.login && errors.login}
                             onFocus={() => setFieldTouched('usuario.login')}
                             onChange={event => setFieldValue('usuario.login', event.target.value)}
+                            InputProps={{
+                                classes: {
+                                  input: classes.resize,
+                                },
+                              }}
                         />
 
                         <StyledTextField
@@ -118,6 +127,11 @@ const Cadastro = props => {
                             error={touched.senha && errors.senha}
                             helperText={touched.senha && errors.senha}
                             onFocus={() => setFieldTouched('usuario.senha')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('usuario.senha', event.target.value)}
                         />
                         
@@ -130,6 +144,11 @@ const Cadastro = props => {
                             error={touched.senha2 && errors.senha2}
                             helperText={touched.senha2 && errors.senha2}
                             onFocus={() => setFieldTouched('senha2')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('senha2', event.target.value)}
                         /> */}
                     </div>
@@ -147,6 +166,11 @@ const Cadastro = props => {
                             error={touched.nome && errors.nome}
                             helperText={touched.nome && errors.nome}
                             onFocus={() => setFieldTouched('nome')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('nome', event.target.value)}
                         />
             
@@ -159,20 +183,35 @@ const Cadastro = props => {
                             error={touched.sobrenome && errors.sobrenome}
                             helperText={touched.sobrenome && errors.sobrenome}
                             onFocus={() => setFieldTouched('sobrenome')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('sobrenome', event.target.value)}
                         />
-                        
-                            <StyledTextField
-                                className={classes.textField}
-                                name="cpf"
-                                label="CPF"
-                                type="text"
-                                value={values.cpf}
-                                error={touched.cpf && errors.cpf}
-                                helperText={touched.cpf && errors.cpf}
-                                onFocus={() => setFieldTouched('cpf')}
-                                onChange={event => setFieldValue('cpf', event.target.value)}
-                            />
+                        <InputMask 
+                            mask="999.999.999-99"
+                            type="text"
+                            value={values.cpf}
+                            error={touched.cpf && errors.cpf}
+                            helperText={touched.cpf && errors.cpf}
+                            onFocus={() => setFieldTouched('cpf')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
+                            onChange={event => setFieldValue('cpf', event.target.value)}
+                        >
+                            {() =>  <StyledTextField
+                                        className={classes.textField}
+                                        name="cpf"
+                                        label="CPF" 
+                                    />
+                             }       
+
+                        </InputMask>
 
                         <StyledTextField
                             className={classes.textField}
@@ -183,6 +222,11 @@ const Cadastro = props => {
                             error={touched.celular && errors.celular}
                             helperText={touched.celular && errors.celular}
                             onFocus={() => setFieldTouched('celular')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('celular', event.target.value)}
                         />
                         
@@ -195,22 +239,38 @@ const Cadastro = props => {
                             error={touched.email && errors.email}
                             helperText={touched.email && errors.email}
                             onFocus={() => setFieldTouched('email')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('email', event.target.value)}
                         />
 
-                        <StyledTextField
-                            className={classes.textField}
-                            name="nascimento"
-                            label="Nascimento"
-                            type="date"
+                        <InputMask 
+                           
+                        
                             value={values.nascimento}
                             error={touched.nascimento && errors.nascimento}
                             helperText={touched.nascimento && errors.nascimento}
                             onFocus={() => setFieldTouched('nascimento')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('nascimento', event.target.value)}
-                            
-                        />
+                        >
 
+                            {() => <StyledTextField
+                                        className={classes.textField}
+                                        name="nascimento"
+                                        label="Nascimento"
+                                        type="date"
+                                    />
+                            }    
+                        </InputMask>
+                        
                     </div> 
                     <div className={classes.divs}>
                         <h3>
@@ -226,6 +286,11 @@ const Cadastro = props => {
                             error={touched.pais && errors.pais}
                             helperText={touched.pais && errors.pais}
                             onFocus={() => setFieldTouched('pais')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('pais', event.target.value)}
                         />
 
@@ -238,6 +303,11 @@ const Cadastro = props => {
                             error={touched.estado && errors.estado}
                             helperText={touched.estado && errors.estado}
                             onFocus={() => setFieldTouched('estado')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('estado', event.target.value)}
                         />
 
@@ -250,6 +320,11 @@ const Cadastro = props => {
                             error={touched.cidade && errors.cidade}
                             helperText={touched.cidade && errors.cidade}
                             onFocus={() => setFieldTouched('cidade')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('cidade', event.target.value)}
                         />
 
@@ -262,6 +337,11 @@ const Cadastro = props => {
                             error={touched.bairro && errors.bairro}
                             helperText={touched.bairro && errors.bairro}
                             onFocus={() => setFieldTouched('bairro')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('bairro', event.target.value)}
                         />
                         <StyledTextField
@@ -273,6 +353,11 @@ const Cadastro = props => {
                             error={touched.rua && errors.rua}
                             helperText={touched.rua && errors.rua}
                             onFocus={() => setFieldTouched('rua')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('rua', event.target.value)}
                         />
                         <StyledTextField
@@ -280,10 +365,16 @@ const Cadastro = props => {
                             name="numero"
                             label="Número"
                             type="number"
+                            placeHolder=""
                             value={values.numero}
                             error={touched.numero && errors.numero}
                             helperText={touched.numero && errors.numero}
                             onFocus={() => setFieldTouched('numero')}
+                            InputProps={{
+                            classes: {
+                              input: classes.resize,
+                            },
+                          }}
                             onChange={event => setFieldValue('numero', event.target.value)}
                         />
 

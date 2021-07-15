@@ -24,7 +24,7 @@ const Cabecalho = (props) => {
   return (
     
     <div>
-      <div className="jumbotron text-center">
+      <div className="jumbotron text-center" id="myPage">
         <h1>CCP Investing</h1>
         <p>Especialista em bolsa de valores</p>
         <form className="form-inline">
@@ -70,9 +70,7 @@ const Cabecalho = (props) => {
               <li>
                 <Link to="/inicio">INICIO</Link>
               </li>
-              <li>
-                <Link to="/portfolio">PORTFOLIO</Link>
-              </li>
+             
               <li>
                 <Link to="/acao">COMPRAR AÇÕES</Link>
               </li>

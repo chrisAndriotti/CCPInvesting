@@ -8,40 +8,7 @@ const Portifolio = (props) => {
         <h2>Portfolio</h2>
         <br />
         <h4>What we have created</h4>
-        <div className="row text-center ">
-          <div className="col-sm-4">
-            <div className="thumbnail">
-              <img src="paris.jpg" alt="Paris" width="400" height="300" />
-              <p>
-                <strong>Paris</strong>
-              </p>
-              <p>Yes, we built Paris</p>
-            </div>
-          </div>
-          <div className="col-sm-4">
-            <div className="thumbnail">
-              <img src="newyork.jpg" alt="New York" width="400" height="300" />
-              <p>
-                <strong>São Paulo, SP</strong>
-              </p>
-              <p>We built New York</p>
-            </div>
-          </div>
-          <div className="col-sm-4">
-            <div className="thumbnail">
-              <img
-                src="sanfran.jpg"
-                alt="San Francisco"
-                width="400"
-                height="300"
-              />
-              <p>
-                <strong>Florianópolis, SC</strong>
-              </p>
-              <p>Ilha do Silício</p>
-            </div>
-          </div>
-        </div>
+       
         <br />
 
         <h2>What our customers say</h2>

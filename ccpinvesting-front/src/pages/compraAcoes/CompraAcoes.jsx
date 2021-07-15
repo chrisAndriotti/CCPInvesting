@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAcoes } from '../../redux/acao/selectors';
 import { buscarAcoes, excluirAcao } from '../../redux/acao/actions';
 import { Container } from '@material-ui/core';
-import { KeyboardArrowUpIcon, KeyboardArrowDownIcon} from '@material-ui/icons/KeyboardArrowUp';
-import { Cabecalho} from '../../componentes/Cabecalho'
+import { usuarioLogado } from '../../redux/login/selectors';
+
+
+
 const StyledGrid = withStyles((theme) => ({
   root: {
     margin:'0 80px 0'
@@ -23,7 +25,8 @@ const StyledTableCellAcaoNome = withStyles((theme) => ({
 
 const StyledTableCellAcaoValor = withStyles((theme) => ({
   root: {
-    font: '400 14px Lato, sans-serif'
+    font: '400 14px Lato, sans-serif',
+    hiden: !isUsuarioLogado
   }
 }))(TableCell);
 
@@ -35,7 +38,7 @@ const StyledDeleteIcon = withStyles((theme) => ({
 
 const CompraAcoes = props => {
   const [open, setOpen] = React.useState(false);
-  // const classes = useStyles();
+  const isUsuarioLogado = useSelectorr(usuarioLogado);
   const acoes = useSelector(getAcoes)
   const dispatch = useDispatch();
 
@@ -56,9 +59,9 @@ const CompraAcoes = props => {
   }
     return (
       <Container >
-        <StyledGrid container >
+        {/* <StyledGrid> */}
           <Grid item xs={10} >
-            <TableContainer component={Paper}>
+            <StyledGrid component={Paper}>
               <Table size="medium">
                 <TableBody >
                   
@@ -68,12 +71,16 @@ const CompraAcoes = props => {
                       <TableCell width="30%" align="center">{acao.descricao}</TableCell>
                       <TableCell width="20%" align="center">{acao.horaAtualizacao}</TableCell>
                       <StyledTableCellAcaoValor width="20%" align="center">{acao.preco} BRL </StyledTableCellAcaoValor>
-                      <TableCell>
+                      
+                      {isUsuarioLogado &&
+                        <TableCell>  
                           <Button className="btn" > {/*onClick={() => setOpen(!open)}  */}
-                          {/* {open ? <KeyboardArrowUpIcon/> : ""} */}
-                          Comprar
-                        </Button>
-                      </TableCell>
+                            {/* {open ? <KeyboardArrowUpIcon/> : ""} */}
+                            Comprar
+                          </Button>
+                        </TableCell>
+                      }
+
                       {/* <TableCell>
                         <IconButton color="primary" onClick={() => this.deleteAcao(acao.id)}>
                           <StyledDeleteIcon/>
@@ -123,9 +130,9 @@ const CompraAcoes = props => {
                   
                 
               </Table>
-            </TableContainer>
+            </StyledGrid>
           </Grid>
-        </StyledGrid>
+        {/* </StyledGrid> */}
       </Container>
     )
 }
