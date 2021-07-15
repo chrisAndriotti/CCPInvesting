@@ -10,6 +10,10 @@ function* watchBuscarInvestidorPorId(){
     yield takeLatest(types.BUSCAR_INVESTIDOR_POR_ID, buscarInvestidorPorId)
 }
 
+function* watchBuscarInvestidorPorLogin(){
+    yield takeLatest(types.BUSCAR_INVESTIDOR_LOGADO, buscarInvestidorPorLogin)
+}
+
 function* watchExcluirInvestidor(){
     yield takeEvery(types.EXCLUIR_INVESTIDOR, excluirInvestidor)
 }
@@ -33,6 +37,12 @@ function* buscarInvestidorPorId(){
     yield put({ type: types.SETAR_INVESTIDOR_ATUAL, investidorAtual: investidor})
 }
 
+function* buscarInvestidorPorLogin(action){
+    const investidor = yield call(InvestidorAPI.buscarInvestidorPorLogin, action.payload);
+    console.log("buscarInvestidorPorLogin",investidor)
+    yield put({ type: types.INVESTIDOR_LOCALIZADO, investidor: investidor})
+}
+
 function* incluirInvestidor(action){
     yield call(InvestidorAPI.cadastrarInvestidor, action.payload);
 }
@@ -52,6 +62,7 @@ export default function* investidorSaga(){
     yield all([
         watchBuscarInvestidores(),
         watchBuscarInvestidorPorId(),
+        watchBuscarInvestidorPorLogin(),
         watchExcluirInvestidor(),
         watchAtualizarInvestidor(),
         watchIncluirInvestidor()

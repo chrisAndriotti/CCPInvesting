@@ -18,7 +18,7 @@ export const buscarInvestidores = () => {return { type: types.BUSCAR_INVESTIDORE
 
 export const buscarInvestidorPorId = id => ({ type: types.BUSCAR_INVESTIDOR_POR_ID, payload: id}); 
 
-// export const buscarInvestidorPorLogin = () => ({ type: types.BUSCAR_INVESTIDOR_LOGADO})
+export const buscarInvestidorPorLogin = login => ({ type: types.BUSCAR_INVESTIDOR_LOGADO, payload: login})
 
 export const excluirInvestidor = id => ({ type: types.EXCLUIR_INVESTIDOR, payload: id});
 

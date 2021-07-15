@@ -6,6 +6,8 @@ function* watchLogar(){
     yield takeEvery(types.ENVIAR_LOGIN, logar)
 }
 
+
+
 function* logar(action){
     const token = yield call(LoginAPI.logar, action.payload);
     console.log("token: ",token)

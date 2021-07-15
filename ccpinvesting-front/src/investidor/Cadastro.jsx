@@ -161,18 +161,18 @@ const Cadastro = props => {
                             onFocus={() => setFieldTouched('sobrenome')}
                             onChange={event => setFieldValue('sobrenome', event.target.value)}
                         />
-            
-                        <StyledTextField
-                            className={classes.textField}
-                            name="cpf"
-                            label="CPF"
-                            type="text"
-                            value={values.cpf}
-                            error={touched.cpf && errors.cpf}
-                            helperText={touched.cpf && errors.cpf}
-                            onFocus={() => setFieldTouched('cpf')}
-                            onChange={event => setFieldValue('cpf', event.target.value)}
-                        />
+                        
+                            <StyledTextField
+                                className={classes.textField}
+                                name="cpf"
+                                label="CPF"
+                                type="text"
+                                value={values.cpf}
+                                error={touched.cpf && errors.cpf}
+                                helperText={touched.cpf && errors.cpf}
+                                onFocus={() => setFieldTouched('cpf')}
+                                onChange={event => setFieldValue('cpf', event.target.value)}
+                            />
 
                         <StyledTextField
                             className={classes.textField}

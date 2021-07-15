@@ -1,6 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Inicio = (props) => {
+
+  const history = useHistory();
+
+  const click = () => {
+    history.push("/fale-conosco/salvar");
+  }
+
   return (
     <div>
       {/*(1) Elemento 1 */}
@@ -20,7 +28,7 @@ const Inicio = (props) => {
             </h4>
             <br />
             
-            <button className="btn btn-default btn-lg">Fale conosco</button>
+            <button className="btn btn-default btn-lg" onClick={() => click()}>Fale conosco</button>
           </div>
           {/* (3) Elemento 3 */}
           <div className="col-sm-4">

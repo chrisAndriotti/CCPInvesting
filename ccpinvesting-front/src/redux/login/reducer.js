@@ -12,7 +12,6 @@ const LoginReducer = (state = INITIAL_STATE, action) =>{
 
     switch (action.type) {
       case API_SUCCESS:
-        console.log('API_SUCESS reducer')
         localStorage.getItem("ccp-token"); //TODO recuperar o id do cara
         return { ...state, isAuthUser: true, loginUsuario: action.payload };
   
@@ -20,7 +19,6 @@ const LoginReducer = (state = INITIAL_STATE, action) =>{
         return { ...state, error: action.payload };
   
       case ENVIAR_LOGIN:
-          console.log('enviar_login')
         return { ...state, isLoading: action.payload };
   
       case LOGOUT:

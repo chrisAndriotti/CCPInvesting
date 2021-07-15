@@ -1,32 +1,40 @@
-
-import { Button, Container, Grid, makeStyles, Table, TableBody, TableContainer, TableHead, TextField, withStyles } from "@material-ui/core";
+import React, { useEffect }  from 'react';
+import { Button, Grid, makeStyles, TextField, withStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { buscarInvestidorPorId } from "../services/investidor";
 import { loginUsuario } from '../redux/login/selectors';
+import { getInvestidor } from '../redux/investidor/selectors';
+import { buscarInvestidorPorLogin } from '../redux/investidor/actions'
 
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-        
+        // // flexWrap: 'wrap',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // flexDirection: 'row'
+        // flexFlow: 'row wrap',
+        // justifyContent: 'space-between'
+       
+  
       },
       divs: {
-        
-        // marginLeft: theme.spacing(4),
-        padding: '50px',
-        justifyContent: 'center',
-        alignItems: 'center'
+        // padding: '50px',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // flexDirection: 'row',
+        // width:'400px'
+        // flex: 1,
+        margin: '10px',
+        textAlign: 'center',
+        // fontSize: '1.5em',
+        // background: 'red',
       },
       textField: {
         // display: 'flex',
         // flexWrap: 'wrap',
-        width: '300px',
+        width: '25em',
+        // background:'green'
 
-        flexDirection: 'row',
-        // marginLeft: theme.spacing(1),
-        // marginRight: theme.spacing(1),
-        
       },
       botao: {
         padding: '50px 0 0',
@@ -35,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledTextField = withStyles((theme) =>({
     root: {
-        padding:'13px 0 13px'
+        margin:'10px',
+        // padding:'5px'
     }
 }))(TextField)
 
@@ -43,66 +52,47 @@ const Perfil = props => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const investidor = useSelector(loginUsuario)
+    const loginInvestidor = useSelector(loginUsuario)
+    const investidor = useSelector(getInvestidor);
 
-    // useEffect(() =>{
-    //     buscarInvestidor();
-    // }, []);
 
-    // const buscarInvestidor = async () => {
-    //     // const acoes = await AcaoAPI.buscarAcoes();
-    //     await dispatch(buscarInvestidorPorLogin());
-    // }
+    useEffect(() =>{
+         (buscarInvestidor(loginInvestidor));
+    }, []);
+
+    const buscarInvestidor = async (login) => {
+        await dispatch(buscarInvestidorPorLogin(login));
+    }
 
     return (
 
-        <Grid className={classes.container} >
-            <Button lable="Buscar" ></Button>
+        <Grid className={classes.container} key={investidor.id} >
+            
             <div>
-                <div className={classes.divs} >
-                    <h3>Dados de login</h3>
-
-                    <StyledTextField
-                       
-                        className={classes.textField}
-                        name="login"
-                        label="Usuário"
-                        type="text"
-                        value={investidor.login}
-                    />
-
-                    <StyledTextField
-                        className={classes.textField}
-                        name="senha"
-                        label="Senha"
-                        type="password"
-                        value={investidor.senha}
-                    />
-                    
-                    {/* <TextField
-                        className={classes.textField}
-                        name="senha2"
-                        label="Repita a senha"
-                        type="password"
-                                                    /> */}
-                </div>
+                {/* <div className={classes.divs}>
+                    <button className="btn" lable="Buscar" >EDITAR</button>
+                </div> */}
+                
                 <div className={classes.divs}>
                     <h3>
                         Dados pessoais
                     </h3>
-
+                  
                     <StyledTextField
                         className={classes.textField}
                         name="nome"
                         label="Primeiro nome"
-                        type="text"
+                        type="readonly"
+                        value={investidor.nome}
                     />
+               
         
                     <StyledTextField
                         className={classes.textField}
                         name="sobrenome"
                         label="Sobrenome"
                         type="text"
+                        value={investidor.sobrenome}
                     />
         
                     <StyledTextField
@@ -110,6 +100,7 @@ const Perfil = props => {
                         name="cpf"
                         label="CPF"
                         type="text"
+                        value={investidor.cpf}
                     />
 
                     <StyledTextField
@@ -117,6 +108,7 @@ const Perfil = props => {
                         name="celular"
                         label="Telefone"
                         type="text"
+                        value={investidor.celular}
                     />
                     
                     <StyledTextField
@@ -124,6 +116,7 @@ const Perfil = props => {
                         name="email"
                         label="Email"
                         type="email"
+                        value={investidor.email}
                     />
 
                     <StyledTextField
@@ -131,9 +124,12 @@ const Perfil = props => {
                         name="nascimento"
                         label="Nascimento"
                         type="date"
+                        value={investidor.nascimento}
                     />
 
                 </div> 
+             
+                
                 <div className={classes.divs}>
             
                     <h3>
@@ -145,6 +141,7 @@ const Perfil = props => {
                         name="pais"
                         label="País"
                         type="text"
+                        value={investidor.pais}
                     />
 
                     <StyledTextField
@@ -152,6 +149,7 @@ const Perfil = props => {
                         name="estado"
                         label="Estado"
                         type="text"
+                        value={investidor.estado}
                     />
 
                     <StyledTextField
@@ -159,6 +157,7 @@ const Perfil = props => {
                         name="cidade"
                         label="Cidade"
                         type="text"
+                        value={investidor.cidade}
                     />
 
                     <StyledTextField
@@ -166,6 +165,7 @@ const Perfil = props => {
                         name="bairro"
                         label="Bairro"
                         type="text"
+                        value={investidor.bairro}
                     />
 
                     <StyledTextField
@@ -173,6 +173,7 @@ const Perfil = props => {
                         name="rua"
                         label="Rua"
                         type="text"
+                        value={investidor.rua}
                     />
 
                     <StyledTextField
@@ -180,9 +181,11 @@ const Perfil = props => {
                         name="numero"
                         label="Número"
                         type="number"
+                        value={investidor.numero}
                     />
 
                 </div>   
+                
             </div>
             
         </Grid>

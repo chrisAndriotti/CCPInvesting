@@ -48,7 +48,7 @@ const Cabecalho = (props) => {
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container">
           <div className="navbar-header">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/inicio">
               <img src={logo} width="50px"/>
             </Link>
             <button

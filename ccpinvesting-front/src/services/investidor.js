@@ -20,6 +20,7 @@ export const buscarInvestidorPorId = id => {
 }
 
 export const buscarInvestidorPorLogin = login => {
+    console.log("chamou api buscar-usuario")
     return axios.get(`${BASE_URL}/buscar-usuario/${login}`)
         .then(response => response.data)
         .catch(error => {
