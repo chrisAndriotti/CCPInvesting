@@ -1,5 +1,5 @@
 import React, { useEffect }  from 'react';
-import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Button, withStyles, IconButton, Collapse, Box, Typography, TableHead } from "@material-ui/core";
+import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Button, withStyles, IconButton, Collapse, Box, Typography, TableHead, TextField } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAcoes } from '../redux/acao/selectors';
@@ -37,6 +37,7 @@ const StyledDeleteIcon = withStyles((theme) => ({
 
 const Listagem = props => {
   const [open, setOpen] = React.useState(false);
+  
   const isUsuarioLogado = useSelector(usuarioLogado);
   const acoes = useSelector(getAcoes)
   const dispatch = useDispatch();
@@ -67,7 +68,8 @@ const Listagem = props => {
                   <TableBody >
 
                     {acoes.map(acao =>([
-                      <TableRow key={acao.id} className="table">
+                      
+                      <TableRow key={acao.id} className="table" href="#collapse">
                         <StyledTableCellAcaoNome width="20%" align="center">{acao.nome}</StyledTableCellAcaoNome>
                         <TableCell width="30%" align="center">{acao.descricao}</TableCell>
                         <TableCell width="20%" align="center">{acao.horaAtualizacao}</TableCell>
@@ -75,18 +77,24 @@ const Listagem = props => {
                         
                         {isUsuarioLogado &&
                           <TableCell>
-                              <Button className="btn" > {/*onClick={() => setOpen(!open)}  */}
-                              {/* {open ? <KeyboardArrowUpIcon/> : ""} */}
+                              <Button className="btn" onClick={() => setOpen(!open)}>
                               Comprar
                             </Button>
                           </TableCell>
                         }
-                        {/* <TableCell>
-                          <IconButton color="primary" onClick={() => this.deleteAcao(acao.id)}>
-                            <StyledDeleteIcon/>
-                          </IconButton>
-                        </TableCell> */}
+                        <div>
+                          <Collapse id="collapse" in={open} timeout="auto" unmountOnExit>
+                            <input width="10%" type='number' min='0' max='100'/>
+                          </Collapse>
+                        </div>
+                      
                       </TableRow>
+              
+                      // {/* <TableRow>
+                      //   
+                      // </TableRow> */}
+                      
+                 
                       // ,
                       // <TableRow key={acao.id}>
                       //   <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
