@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { usuarioLogado } from '../redux/login/selectors'
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import login from '../assets/login.png'
 
 const LOGIN_INICIAL = {
   login: "",
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      padding:'0 0 0 0 ',
       // background: 'blue'
   },
   divs: {
@@ -34,6 +36,20 @@ const useStyles = makeStyles((theme) => ({
     padding: '50px 30px 0 ',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  avatarLogin:{
+      border:'solid',
+      borderRadius:'50%',
+      padding:'10px',
+      borderWidth:'3px',
+      borderColor:'#f4511e',
+      background:'#f4511e'
+    
+  },
+  divAvatarLogin:{
+  
+    margin:'80px 0 0 490px',
+    maxWidth:'150px'
   }
 
 }))
@@ -62,65 +78,76 @@ const Login = props =>{
   
 
   return (
-    <Formik
-    enableReinitialize
-    validateOnMount
-    validationSchema={LoginSchema}
-    initialValues={ LOGIN_INICIAL }
-    onSubmit={(login, acoes) => enviarLogin(login, acoes)}
-    render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
-    return (
-      <Form className={classes.container}>
-        <Grid >
-
-          <Grid className={classes.divs}>
-            <TextField
-            className={classes.textField}
-            name="login"
-            value={values.login}
-            item xs={11}
-            label="login"
-            error={touched.login && errors.login}
-            helperText={touched.login && errors.login}
-            onFocus={() => setFieldTouched('login')}
-            onChange={event => setFieldValue('login', event.target.value)}
-            />
-          </Grid>
-
-          <Grid className={classes.divs}>
-            <TextField
-            className={classes.textField}
-            name="senha"
-            value={values.senha}
-            item xs={11}
-            label="senha"
-            type="password"
-            error={touched.senha && errors.senha}
-            helperText={touched.senha && errors.senha}
-            onFocus={() => setFieldTouched('senha')}
-            onChange={event => setFieldValue('senha', event.target.value)}
-            />
+    <div>
+      <div className="container bg-grey">  
+        <div className={classes.divAvatarLogin}>
+          <div className="thumbnail">
+            <img src={login} className={classes.avatarLogin} alt="Christofer"/>
+          </div>
+        </div>
+      </div>
+      <Formik
+        enableReinitialize
+        validateOnMount
+        validationSchema={LoginSchema}
+        initialValues={ LOGIN_INICIAL }
+        onSubmit={(login, acoes) => enviarLogin(login, acoes)}
+        render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
+        return (
+          
+          <Form className={classes.container}>
             
-          </Grid>
+            <Grid >
+              
+              <Grid className={classes.divs}>
+                <TextField
+                className={classes.textField}
+                name="login"
+                value={values.login}
+                item xs={11}
+                label="login"
+                error={touched.login && errors.login}
+                helperText={touched.login && errors.login}
+                onFocus={() => setFieldTouched('login')}
+                onChange={event => setFieldValue('login', event.target.value)}
+                />
+              </Grid>
+
+              <Grid className={classes.divs}>
+                <TextField
+                className={classes.textField}
+                name="senha"
+                value={values.senha}
+                item xs={11}
+                label="senha"
+                type="password"
+                error={touched.senha && errors.senha}
+                helperText={touched.senha && errors.senha}
+                onFocus={() => setFieldTouched('senha')}
+                onChange={event => setFieldValue('senha', event.target.value)}
+                />
+                
+              </Grid>
 
 
-          <Grid className={classes.divBotao}>
-            <button 
-            className="btn btnLogin"
-            color="#f4511e"
-            type="submit"
-            disabled={isSubmitting}
-            >
-              Logar
-            </button>
-            
-          </Grid>
-        </Grid>
-      </Form>
+              <Grid className={classes.divBotao}>
+                <button 
+                className="btn btnLogin"
+                color="#f4511e"
+                type="submit"
+                disabled={isSubmitting}
+                >
+                  Logar
+                </button>
+                
+              </Grid>
+            </Grid>
+          </Form>
+          
+        )}}  
       
-    )}}  
-    
-    />
+      />
+    </div>
     
   )
   

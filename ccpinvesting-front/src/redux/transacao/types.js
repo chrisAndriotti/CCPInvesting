@@ -1,0 +1,2 @@
+export const ENVIAR_DEPOSITO = 'ENVIAR_DEPOSITO';
+export const DEPOSITO_OK = 'DEPOSITO_OK';

@@ -1,7 +1,10 @@
 import React from 'react';
+import Jumbotron from './Jumbotron'
 
 const Contatos = (props) => {
   return (
+    <div>
+    <Jumbotron />
     <div>
       {/*Container (Contact Section) */}
       <div id="contact" className="container-fluid bg-grey">
@@ -70,6 +73,7 @@ const Contatos = (props) => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

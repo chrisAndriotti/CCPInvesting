@@ -23,15 +23,12 @@ class App extends Component {
         <BrowserRouter>
           <div className="App">
             <Cabecalho />
-
             <Route path="/inicio" exact component={Inicio} />
-            {/* <Route path="/negociacoes" component={Negociacoes} /> */}
             <Route path="/acao" component={Listagem} />
             <Route path="/fale-conosco/salvar" component={Contato} />
             <Route path="/investidor/cadastrar" component={CadastroInvestidor} />
             <Route path="/seguranca/login" component={Login} />
             <Route path="/perfil" component={Perfil} />
-
             <Rodape />
           </div>
         </BrowserRouter>

@@ -126,6 +126,19 @@ h4 {
   color: #f4511e;
 }
 
+.btnPerfil {
+  border: 0.5px solid #f4511e;
+  background-color: #3d2b2b !important;
+  color: #f4511e;
+}
+
+.btnPerfil:hover{
+  color: #ffffff ;
+  background-color: #f4511e !important;
+  font-weight: 700;
+}
+
+
 .info-item {
   background-color: white !important;
   text-align: center;

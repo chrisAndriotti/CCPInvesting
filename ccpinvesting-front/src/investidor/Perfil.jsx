@@ -1,5 +1,5 @@
 import React, { useEffect }  from 'react';
-import { Avatar, Button, Card, CardActions, CardContent, Grid, makeStyles, TextField, withStyles } from "@material-ui/core";
+import { Avatar, Button, Card, CardActions, CardContent, Collapse, Grid, makeStyles, TextField, withStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsuario } from '../redux/login/selectors';
 import { getInvestidor } from '../redux/investidor/selectors';
@@ -10,43 +10,76 @@ import chris from '../assets/chris.jpg';
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
-        },
-        divs: {        
-            margin: '10px',
-            textAlign: 'center',
-        },
-        textField: {
-            margin:'10px',
-            fontSize:'12px',
-            width: '25em',
-        },
-        botao: {
-            padding: '50px 0 0',
-        },
-        resize:{
-            fontSize:15
-        },
-        avatar:{
-            margin:'10px'
-        },
-        containerCard:{
-            flexirection: 'column',
-        },
-        divsCard:{
-            flex: 1,
-            margin: '5px',
-            background: 'tomato',
-            textAlign: 'center',
-        }
+    },
+    divs: {        
+        margin: '5px',
+        textAlign: 'center',
+    },
+    gridContainer:{
+        margin:'50px 0 0 0',
+        background:'#3d2b2b',
+        padding:'10px'
+    },
+    textField: {
+        margin:'10px',
+        fontSize:'12px',
+        width: '25em',
+    },
+    botao: {
+        padding: '50px 0 0',
+        background:'blue',
+        alignSelf:'top'
+    },
+    resize:{
+        fontSize:15
+    },
+    avatar:{
+        width: theme.spacing(6),
+        height: theme.spacing(6),
+        background:'#f4511e'
+    },
+    containerCard:{
+        display: 'flex',
+    },
+
+    divAvatar:{
+       margin:'5px 0 0 5px',
+    },
+    btnEditar:{
+        margin:'12px'
+    },
+    labelCarteira:{
+        margin:'5px',
+        padding:'0 0 20px 49px'
+    },
+    carteira:{
+        margin:'5px'
+    },
+    btnDepositar:{
+        margin:'5px'
+    },
+    btnSacar:{
+        margin:'5px',
+        display:'flex',
+        height:'33px',
+        justifyContent:'right'
+    },
+    usuario:{
+        margin:'-5px 0 0 7px',
+        textAlign: 'top',
+    },
+    carteiraCor:{
+        color:'green'
+    }
+
 }));
 
 const Perfil = props => {
-
+    const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const dispatch = useDispatch();
     const loginInvestidor = useSelector(loginUsuario)
     const investidor = useSelector(getInvestidor);
-
 
     useEffect(() =>{
          (buscarInvestidor(loginInvestidor));
@@ -55,35 +88,45 @@ const Perfil = props => {
     const buscarInvestidor = async (login) => {
         await dispatch(buscarInvestidorPorLogin(login));
     }
+    
 
     return (
-
-        <Grid className={classes.container} key={investidor.id} >
-            
-            <div>
-                <div className={classes.containerCard}>
-                    <Card>
-                        <CardContent>
-                            <div className={classes.divsCard}>
-                                <Avatar className={classes.avatar} src="../assets/chris.jpg" />
-                                Olá, {investidor.nome}
-                            </div>
-                            <div className={classes.divsCard}>
-                                <p>
-                                    SALDO:
-                                </p>
-                                <p>
-                                    R$ {investidor.carteira}
-                                </p>
-                            </div>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Editar perfil</Button>
-                        </CardActions>
-                    </Card>
-                </div>
+        <div id="perfil">
+            <Grid container className={classes.gridContainer} key={investidor.id} >
+                <Grid item md={0.5} className={classes.divAvatar}>  
+                    <Avatar className={classes.avatar} spacing={1} src={chris} />
+                </Grid>
+                <Grid item md={8} className={classes.btnEditar}>
+                    <button className='btn btnPerfil' href="dados" onClick={() => setOpen(!open)}>Editar perfil</button>
+                </Grid>
+                <Grid item md={0.5} className={classes.labelCarteira}>
+                    Saldo:
+                </Grid>
+                <Grid item md={0.5} className={classes.carteira}>
+                    <b className={classes.carteiraCor}>
+                        R$ {investidor.carteira}
+                    </b>
+                </Grid>
                 
-                <div className={classes.divs}>
+                <Grid item md={0.5} className={classes.btnDepositar}>
+                    <button className='btn btnPerfil'>Depositar</button>
+                </Grid>
+                <Grid item md={0.5} className={classes.btnSacar}>
+                    <button className='btn btnPerfil'>Sacar</button>
+                </Grid>
+
+
+                <Grid item xs={12} md={12} className={classes.usuario}> 
+                    <h3>
+                        Olá, {investidor.nome}
+                    </h3>
+                </Grid>
+               
+           
+            </Grid>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+            <div>
+                <div className={classes.divs} id="dados">
                     <h3>
                         Dados pessoais
                     </h3>
@@ -275,10 +318,11 @@ const Perfil = props => {
                 </div>   
                 
             </div>
+            </Collapse>
+        </div>
+       
             
-        </Grid>
-                
-        
+            
     )
     
 

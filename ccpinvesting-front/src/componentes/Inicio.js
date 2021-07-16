@@ -2,7 +2,9 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import chris from '../assets/chris.jpg';
 import cristhiano from '../assets/cristhiano.jpg'
-import logo from '../assets/logo4.png'
+import pietro from '../assets/pietro.jpg'
+import Jumbotron from './Jumbotron';
+
 
 const Inicio = (props) => {
 
@@ -14,7 +16,7 @@ const Inicio = (props) => {
 
   return (
     <div>
-
+      <Jumbotron />
       <div id="about" className="container-fluid">
         <div className="row">
           <div className="col-sm-8">
@@ -58,7 +60,7 @@ const Inicio = (props) => {
             </div>
             <div className="col-sm-4" style={{padding: '80px'}}>
               <div className="thumbnail">
-                <img src={logo} className="foto-inicio"  />
+                <img src={pietro} className="foto-inicio"  />
                 <p>
                   <strong>Pietro Mendes</strong>
                 </p>
