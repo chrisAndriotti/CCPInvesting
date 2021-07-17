@@ -32,3 +32,9 @@ export const LOGIN_INICIAL = {
     login: "",
     senha: ""
   }
+
+export const COMPRA_INICIAL = {
+    acaoId: 0,
+    investidorId: 0,
+    quantidade: 0
+}

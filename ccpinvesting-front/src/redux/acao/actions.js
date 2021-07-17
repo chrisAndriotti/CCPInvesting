@@ -1,5 +1,4 @@
 import * as types from './types'
-import * as AcaoAPI from '../../services/acao';
 
 export const armazenarAcoes = acoes => (
     {

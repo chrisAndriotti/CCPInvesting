@@ -1,14 +1,17 @@
 import React, { useEffect }  from 'react';
-import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Button, withStyles, IconButton, Collapse, Box, Typography, TableHead, TextField } from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Button, withStyles,Collapse, Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAcoes } from '../redux/acao/selectors';
 import { buscarAcoes, excluirAcao } from '../redux/acao/actions';
 import { Container } from '@material-ui/core';
-import { KeyboardArrowUpIcon, KeyboardArrowDownIcon} from '@material-ui/icons/KeyboardArrowUp';
 import Jumbotron from '../componentes/Jumbotron';
 import { usuarioLogado } from '../redux/login/selectors';
+import { getInvestidor, getInvestidorId } from '../redux/investidor/selectors';
+import { comprar } from '../redux/compra/actions';
+import { COMPRA_INICIAL } from '../util/constantes';
+import { Form, Formik } from 'formik';
 // import { Cabecalho} from '../../componentes/Cabecalho'
+
 const StyledGrid = withStyles((theme) => ({
   root: {
     margin:'0 80px 0'
@@ -29,26 +32,50 @@ const StyledTableCellAcaoValor = withStyles((theme) => ({
   }
 }))(TableCell);
 
-const StyledDeleteIcon = withStyles((theme) => ({
-  root: {
-    color: '#f4511e'
+
+const StyledInput = withStyles((theme) =>({
+  root:{
+    textAlignLast:'center',
+    width:'50px',
+    borderColor:'#f4511e'
   }
-}))(DeleteIcon)
+}))(Input)
 
 const Listagem = props => {
+ 
   const [open, setOpen] = React.useState(false);
-  
   const isUsuarioLogado = useSelector(usuarioLogado);
   const acoes = useSelector(getAcoes)
+  const investidor = useSelector(getInvestidor)
+  const investidorId = useSelector(getInvestidorId)
+  // const compraInitial = useSelector(setCompra) 
   const dispatch = useDispatch();
+  const compraInitial = COMPRA_INICIAL
 
   useEffect(() =>{
     carregarAcoes();
   }, []);
 
   const carregarAcoes = async () => {
-    // const acoes = await AcaoAPI.buscarAcoes();
     await dispatch(buscarAcoes());
+  }
+  
+  const comprarAcao = compra => {
+    dispatch(comprar(compra))
+  }
+
+  const montarCompra = (acaoId) =>{
+    compraInitial.acaoId=acaoId
+  }
+
+  const enviarCompra = (compraMontada) => {
+    
+    // compraInitial.acaoId=acao
+    compraInitial.investidorId=investidor.id
+    console.log("compra", compraMontada);
+
+    comprarAcao(compraMontada);
+
   }
 
   const deleteAcao = async (id) => {
@@ -77,16 +104,51 @@ const Listagem = props => {
                         
                         {isUsuarioLogado &&
                           <TableCell>
-                              <Button className="btn" onClick={() => setOpen(!open)}>
-                              Comprar
-                            </Button>
+                            {open && 
+                              <Button className="btn" onClick={() => setOpen(!open)}>  
+                                Voltar
+                              </Button>
+                            }
+                            {!open &&
+                              <Button className="btn" onClick={() => setOpen(!open)}>  
+                                Comprar
+                              </Button>
+                            }
                           </TableCell>
                         }
-                        <div>
-                          <Collapse id="collapse" in={open} timeout="auto" unmountOnExit>
-                            <input width="10%" type='number' min='0' max='100'/>
-                          </Collapse>
-                        </div>
+                        <Formik
+                          enableReinitialize
+                          validateOnMount
+                          initialValues={ compraInitial }
+                          onSubmit={(compra, acoes) => enviarCompra(compra, acoes)}
+                          render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
+                          return (
+                            <div>
+                              
+                              <Collapse id="collapse" in={open} timeout="auto" unmountOnExit>
+                                <Form>
+                                  <TableCell width="1%">
+                                    <StyledInput
+                                      name="quantidade"
+                                      value={values.quantidade}
+                                      onFocus={() => setFieldTouched('quantidade')}
+                                      onChange={event => setFieldValue('quantidade', event.target.value)}
+                                      InputProps={{ inputProps: { min: 0, max: 10 } }}
+                                      type='number'
+                                      placeholder="Qtd."
+                                      
+                                      />
+                                  </TableCell>
+                                  <TableCell width="1%">
+                                    <button type="submit"  className='btn btnConfirmar' disabled={isSubmitting} onClick={() => montarCompra(values.acaoId)}>Confirmar</button>
+                                    
+                                  </TableCell>
+                                </Form>
+                              
+                              </Collapse>
+                            </div>
+                        )}}  
+                        />
                       
                       </TableRow>
               

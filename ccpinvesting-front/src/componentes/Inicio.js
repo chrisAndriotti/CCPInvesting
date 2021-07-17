@@ -38,7 +38,7 @@ const Inicio = (props) => {
           </div>
         </div>
       </div>
-      <div className="container bg-grey">
+      <div className="container">
         <div className="row text-center ">
             <div className="col-sm-4" style={{padding: '80px'}}>
               <div className="thumbnail">

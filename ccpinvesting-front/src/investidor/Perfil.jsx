@@ -1,5 +1,5 @@
 import React, { useEffect }  from 'react';
-import { Avatar, Button, Card, CardActions, CardContent, Collapse, Grid, makeStyles, TextField, withStyles } from "@material-ui/core";
+import { Avatar, Collapse, Grid, makeStyles, TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsuario } from '../redux/login/selectors';
 import { getInvestidor } from '../redux/investidor/selectors';
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     divs: {        
-        margin: '5px',
+        margin: '12px',
         textAlign: 'center',
     },
     gridContainer:{
@@ -50,13 +50,14 @@ const useStyles = makeStyles((theme) => ({
     },
     labelCarteira:{
         margin:'5px',
-        padding:'0 0 20px 49px'
+        padding:'0 0 20px 50px',
+        
     },
     carteira:{
         margin:'5px'
     },
     btnDepositar:{
-        margin:'5px'
+        margin:'5px 0 0 9px'
     },
     btnSacar:{
         margin:'5px',
@@ -69,8 +70,11 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'top',
     },
     carteiraCor:{
-        color:'green'
-    }
+        color:'#56f321'
+    },
+    h4:{
+        color:'#ffff'
+    },
 
 }));
 
@@ -100,7 +104,9 @@ const Perfil = props => {
                     <button className='btn btnPerfil' href="dados" onClick={() => setOpen(!open)}>Editar perfil</button>
                 </Grid>
                 <Grid item md={0.5} className={classes.labelCarteira}>
-                    Saldo:
+                    <div className={classes.h4}>
+                        Saldo:
+                    </div>
                 </Grid>
                 <Grid item md={0.5} className={classes.carteira}>
                     <b className={classes.carteiraCor}>
@@ -117,15 +123,15 @@ const Perfil = props => {
 
 
                 <Grid item xs={12} md={12} className={classes.usuario}> 
-                    <h3>
+                    <h4 className={classes.h4}>
                         Olá, {investidor.nome}
-                    </h3>
+                    </h4>
                 </Grid>
                
            
             </Grid>
             <Collapse in={open} timeout="auto" unmountOnExit>
-            <div>
+            <div className="">
                 <div className={classes.divs} id="dados">
                     <h3>
                         Dados pessoais

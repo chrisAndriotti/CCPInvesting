@@ -6,12 +6,8 @@ import store from './redux/store';
 import Inicio from './componentes/Inicio';
 import Cabecalho from './componentes/Cabecalho';
 import Rodape from './componentes/Rodape';
-// import Negociacoes from './componentes/Negociacoes';
-import Portifolio from './componentes/Portifolio';
 import Contato from './componentes/Contato';
 import Login from './pages/login/Login';
-import Painel from './componentes/Painel';
-// import CompraAcoes from './pages/compraAcoes/CompraAcoes';
 import CadastroInvestidor from './pages/cadastroInvestidor/CadastroInvestidor'
 import Listagem from './acao/Listagem';
 import Perfil from './investidor/Perfil';

@@ -79,7 +79,7 @@ const Login = props =>{
 
   return (
     <div>
-      <div className="container bg-grey">  
+      <div className="container">  
         <div className={classes.divAvatarLogin}>
           <div className="thumbnail">
             <img src={login} className={classes.avatarLogin} alt="Christofer"/>

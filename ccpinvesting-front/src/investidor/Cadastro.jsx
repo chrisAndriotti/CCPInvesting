@@ -197,17 +197,18 @@ const Cadastro = props => {
                             error={touched.cpf && errors.cpf}
                             helperText={touched.cpf && errors.cpf}
                             onFocus={() => setFieldTouched('cpf')}
-                            InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
+                           
                             onChange={event => setFieldValue('cpf', event.target.value)}
                         >
                             {() =>  <StyledTextField
                                         className={classes.textField}
                                         name="cpf"
                                         label="CPF" 
+                                        InputProps={{
+                                          classes: {
+                                            input: classes.resize,
+                                          },
+                                        }}
                                     />
                              }       
 
@@ -254,6 +255,7 @@ const Cadastro = props => {
                             error={touched.nascimento && errors.nascimento}
                             helperText={touched.nascimento && errors.nascimento}
                             onFocus={() => setFieldTouched('nascimento')}
+                            InputLabelProps={{ shrink: true }}
                             InputProps={{
                             classes: {
                               input: classes.resize,
@@ -365,7 +367,6 @@ const Cadastro = props => {
                             name="numero"
                             label="Número"
                             type="number"
-                            placeHolder=""
                             value={values.numero}
                             error={touched.numero && errors.numero}
                             helperText={touched.numero && errors.numero}
