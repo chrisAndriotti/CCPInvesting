@@ -1,11 +1,31 @@
 import React, { useEffect }  from 'react';
-import { Avatar, Collapse, Grid, makeStyles, TextField } from "@material-ui/core";
+import { Avatar, Collapse, Container, Grid, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, withStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsuario } from '../redux/login/selectors';
 import { getInvestidor } from '../redux/investidor/selectors';
 import { buscarInvestidorPorLogin } from '../redux/investidor/actions'
 import  InputMask  from "react-input-mask";
 import chris from '../assets/chris.jpg';
+
+const StyledGrid = withStyles((theme) => ({
+    root: {
+      margin:'0 80px 0'
+    }
+  }))(TableContainer);
+  
+  const StyledTableCellAcaoNome = withStyles((theme) => ({
+    root: {
+      color: '#f4511e',
+      fontWeight: '1000',
+      font: '400 15px Lato, sans-serif'
+    }
+  }))(TableCell);
+  
+  const StyledTableCellAcaoValor = withStyles((theme) => ({
+    root: {
+      font: '400 14px Lato, sans-serif'
+    }
+  }))(TableCell);
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -57,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
         margin:'5px'
     },
     btnDepositar:{
-        margin:'5px 0 0 9px'
+        margin:'5px 0 0 10px'
     },
     btnSacar:{
         margin:'5px',
@@ -66,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent:'right'
     },
     usuario:{
-        margin:'-5px 0 0 7px',
+        margin:'5px 0 0 7px',
         textAlign: 'top',
     },
     carteiraCor:{
@@ -92,6 +112,10 @@ const Perfil = props => {
     const buscarInvestidor = async (login) => {
         await dispatch(buscarInvestidorPorLogin(login));
     }
+
+    const buscarCompras = async (investidor) => {
+
+    }
     
 
     return (
@@ -100,7 +124,7 @@ const Perfil = props => {
                 <Grid item md={0.5} className={classes.divAvatar}>  
                     <Avatar className={classes.avatar} spacing={1} src={chris} />
                 </Grid>
-                <Grid item md={8} className={classes.btnEditar}>
+                <Grid item md={9} className={classes.btnEditar}>
                     <button className='btn btnPerfil' href="dados" onClick={() => setOpen(!open)}>Editar perfil</button>
                 </Grid>
                 <Grid item md={0.5} className={classes.labelCarteira}>
@@ -108,28 +132,56 @@ const Perfil = props => {
                         Saldo:
                     </div>
                 </Grid>
-                <Grid item md={0.5} className={classes.carteira}>
+                <Grid item md={1} className={classes.carteira}>
                     <b className={classes.carteiraCor}>
                         R$ {investidor.carteira}
                     </b>
                 </Grid>
                 
-                <Grid item md={0.5} className={classes.btnDepositar}>
-                    <button className='btn btnPerfil'>Depositar</button>
-                </Grid>
-                <Grid item md={0.5} className={classes.btnSacar}>
-                    <button className='btn btnPerfil'>Sacar</button>
-                </Grid>
+                
 
-
-                <Grid item xs={12} md={12} className={classes.usuario}> 
+                <Grid item xs={10} className={classes.usuario}> 
                     <h4 className={classes.h4}>
                         Olá, {investidor.nome}
                     </h4>
                 </Grid>
-               
+                <Grid item xs={0.5} className={classes.btnDepositar}>
+                    <button className='btn btnPerfil'>Depositar</button>
+                </Grid>
+                <Grid item xs={0.5} className={classes.btnSacar}>
+                    <button className='btn btnPerfil'>Sacar</button>
+                </Grid>
+
            
             </Grid>
+            <Container >
+                <StyledGrid container >
+                    <Grid item xs={10} >
+                    <TableContainer component={Paper}>
+                        <Table size="medium">
+                            <TableBody >
+
+                            {investidor.investimento.map(investimento =>([
+                            
+                                <TableRow key={investimento.id} className="table" href="#collapse">
+                                    <StyledTableCellAcaoNome width="20%" align="center">{investimento.acao.nome}</StyledTableCellAcaoNome>
+                                    <TableCell width="30%" align="center">{investimento.acao.descricao}</TableCell>
+                                    <TableCell width="20%" align="center">{investimento.acao.horaAtualizacao}</TableCell>
+                                    <StyledTableCellAcaoValor width="20%" align="center"> {investimento.valor} BRL</StyledTableCellAcaoValor>
+        
+                                </TableRow>
+                    
+                        
+                            ]))}
+                            
+                            </TableBody>
+                            
+                        
+                        </Table>
+                    </TableContainer>
+                    </Grid>
+                </StyledGrid>
+                </Container>
             <Collapse in={open} timeout="auto" unmountOnExit>
             <div className="">
                 <div className={classes.divs} id="dados">

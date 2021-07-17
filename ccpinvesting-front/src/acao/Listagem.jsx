@@ -5,11 +5,13 @@ import { getAcoes } from '../redux/acao/selectors';
 import { buscarAcoes, excluirAcao } from '../redux/acao/actions';
 import { Container } from '@material-ui/core';
 import Jumbotron from '../componentes/Jumbotron';
-import { usuarioLogado } from '../redux/login/selectors';
-import { getInvestidor, getInvestidorId } from '../redux/investidor/selectors';
+import { loginUsuario, usuarioLogado } from '../redux/login/selectors';
+import { getInvestidor } from '../redux/investidor/selectors';
 import { comprar } from '../redux/compra/actions';
 import { COMPRA_INICIAL } from '../util/constantes';
 import { Form, Formik } from 'formik';
+import { buscarInvestidorPorLogin } from '../redux/investidor/actions';
+import * as yup from 'yup';
 // import { Cabecalho} from '../../componentes/Cabecalho'
 
 const StyledGrid = withStyles((theme) => ({
@@ -47,35 +49,34 @@ const Listagem = props => {
   const isUsuarioLogado = useSelector(usuarioLogado);
   const acoes = useSelector(getAcoes)
   const investidor = useSelector(getInvestidor)
-  const investidorId = useSelector(getInvestidorId)
+  const loginInvestidor = useSelector(loginUsuario)
   // const compraInitial = useSelector(setCompra) 
   const dispatch = useDispatch();
   const compraInitial = COMPRA_INICIAL
 
   useEffect(() =>{
     carregarAcoes();
+    buscarInvestidor(loginInvestidor);
+
   }, []);
 
+  const buscarInvestidor = async (login) => {
+    await dispatch(buscarInvestidorPorLogin(login));
+  }
   const carregarAcoes = async () => {
     await dispatch(buscarAcoes());
   }
-  
   const comprarAcao = compra => {
+    console.log('dispatch',compra)
     dispatch(comprar(compra))
   }
 
-  const montarCompra = (acaoId) =>{
-    compraInitial.acaoId=acaoId
-  }
-
-  const enviarCompra = (compraMontada) => {
-    
-    // compraInitial.acaoId=acao
-    compraInitial.investidorId=investidor.id
-    console.log("compra", compraMontada);
-
-    comprarAcao(compraMontada);
-
+  const enviarCompra = (compra, acao) => {
+    compra.acaoId=acao
+    compra.investidorId=investidor.id
+    compra.quantidade=parseInt(compra.quantidade)
+    console.log("compra:",compra)
+    comprarAcao(compra)
   }
 
   const deleteAcao = async (id) => {
@@ -119,8 +120,10 @@ const Listagem = props => {
                         <Formik
                           enableReinitialize
                           validateOnMount
+                          // initialValues={ compraInitial }
                           initialValues={ compraInitial }
-                          onSubmit={(compra, acoes) => enviarCompra(compra, acoes)}
+                          // validationSchema={yup.object().shape({ quantidade: yup.number().max(20, "maximo 20 por compra").required("requer") })}
+                          onSubmit={(compraInitial, acoes) => enviarCompra(compraInitial,acao.id)}
                           render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
                           return (
                             <div>
@@ -131,17 +134,19 @@ const Listagem = props => {
                                     <StyledInput
                                       name="quantidade"
                                       value={values.quantidade}
+                                      error={touched.quantidade && errors.quantidade}
+                                      helperText={touched.quantidade && errors.quantidade}
                                       onFocus={() => setFieldTouched('quantidade')}
                                       onChange={event => setFieldValue('quantidade', event.target.value)}
-                                      InputProps={{ inputProps: { min: 0, max: 10 } }}
-                                      type='number'
+                                      // InputProps={{ inputProps: { min: 0, max: 10 } }}
+                                      type="number"
                                       placeholder="Qtd."
                                       
                                       />
                                   </TableCell>
                                   <TableCell width="1%">
-                                    <button type="submit"  className='btn btnConfirmar' disabled={isSubmitting} onClick={() => montarCompra(values.acaoId)}>Confirmar</button>
-                                    
+                                    <button type="submit"  className='btn btnConfirmar' disabled={isSubmitting} >Confirmar</button>
+                                    {/* onClick={() => montarCompra(values.acaoId)} */}
                                   </TableCell>
                                 </Form>
                               

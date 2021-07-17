@@ -4,7 +4,6 @@ import investidor from "./investidor/reducer";
 import login from './login/reducer'
 import compra from './compra/reducer'
 
-console.log('root reducer')
 export default combineReducers({
     acao: acao,
     investidor: investidor,
