@@ -60,7 +60,7 @@ const Inicio = (props) => {
             </div>
             <div className="col-sm-4" style={{padding: '80px'}}>
               <div className="thumbnail">
-                <img src={pietro} className="foto-inicio"  />
+                <img src={pietro} className="foto-inicio" alt="Pietro" />
                 <p>
                   <strong>Pietro Mendes</strong>
                 </p>

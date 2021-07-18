@@ -8,6 +8,7 @@ const CadastroInvestidor = props => {
     const dispatch = useDispatch();
    
     const salvarInvestidor =  investidor => {
+        console.log('dispatch cadastro',investidor)
          dispatch(cadastrarInvestidor(investidor))
     }
 

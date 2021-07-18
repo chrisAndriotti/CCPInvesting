@@ -7,6 +7,7 @@ const LoginPage = props => {
     const dispatch = useDispatch();
 
     const logar =  login => {
+      console.log('dispatch login',login)
          dispatch(buscarToken(login))
     }
 

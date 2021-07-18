@@ -2,7 +2,7 @@ import React, { useEffect }  from 'react';
 import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Button, withStyles,Collapse, Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAcoes } from '../redux/acao/selectors';
-import { buscarAcoes, excluirAcao } from '../redux/acao/actions';
+import { buscarAcoes } from '../redux/acao/actions';
 import { Container } from '@material-ui/core';
 import Jumbotron from '../componentes/Jumbotron';
 import { loginUsuario, usuarioLogado } from '../redux/login/selectors';
@@ -11,7 +11,6 @@ import { comprar } from '../redux/compra/actions';
 import { COMPRA_INICIAL } from '../util/constantes';
 import { Form, Formik } from 'formik';
 import { buscarInvestidorPorLogin } from '../redux/investidor/actions';
-import * as yup from 'yup';
 // import { Cabecalho} from '../../componentes/Cabecalho'
 
 const StyledGrid = withStyles((theme) => ({
@@ -56,7 +55,10 @@ const Listagem = props => {
 
   useEffect(() =>{
     carregarAcoes();
-    buscarInvestidor(loginInvestidor);
+    if(isUsuarioLogado){
+      buscarInvestidor(loginInvestidor);
+    }
+
 
   }, []);
 
@@ -79,12 +81,6 @@ const Listagem = props => {
     comprarAcao(compra)
   }
 
-  const deleteAcao = async (id) => {
-    console.log("this ", this);
-    await excluirAcao(id);
-    this.carregarAcoes();
-   
-  }
     return (
       <div>
         <Jumbotron />

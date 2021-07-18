@@ -1,4 +1,4 @@
-import {BUSCAR_COMPRAS, ENVIAR_COMPRA, ARMAZENAR_COMPRAS } from "../compra/types"
+import { ENVIAR_COMPRA, ARMAZENAR_COMPRAS } from "../compra/types"
 
 const INITIAL_STATE = {}
 

@@ -49,7 +49,7 @@ const Cabecalho = (props) => {
         <div className="container">
           <div className="navbar-header">
             <Link className="navbar-brand" to="/inicio">
-              <img src={logo} width="50px"/>
+              <img src={logo} alt="logo" width="50px"/>
             </Link>
             <button
               type="button"

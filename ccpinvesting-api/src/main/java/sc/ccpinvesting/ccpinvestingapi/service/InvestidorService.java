@@ -114,7 +114,7 @@ public class InvestidorService {
         }
 
         
-        cadastrar(investidor);
+        atualizar(idInvestidor, investidor);
     }
 
     public Investidor deposito (Transacao transacao)

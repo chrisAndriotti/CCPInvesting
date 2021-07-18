@@ -86,7 +86,8 @@ public class CompraService {
                 if(!flag){
                     
                     var investimentoNovo = investimentoService.criarComParametros(acao, totalCompra, true);
-
+                    
+                    
                     investidorService.incluirInvestimento(investidorId, investimentoNovo, false);
 
                 }

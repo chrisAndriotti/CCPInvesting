@@ -19,6 +19,7 @@ const LoginReducer = (state = INITIAL_STATE, action) =>{
         return { ...state, error: action.payload };
   
       case ENVIAR_LOGIN:
+        console.log('reducer login',action.payload)
         return { ...state, isLoading: action.payload };
   
       case LOGOUT:

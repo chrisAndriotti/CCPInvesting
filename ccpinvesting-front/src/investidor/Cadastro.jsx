@@ -380,7 +380,15 @@ const Cadastro = props => {
                     </div>   
                 </Grid>
                 <div className={classes.botao}>
-                    <button type="submit" className="btn" disabled={isSubmitting}>Finalizar cadastro</button>  
+                  {isSubmitting && 
+
+                   <button type="submit" className="btn" disabled={isSubmitting}>Enviando</button>
+                   
+                  }
+                    <button type="submit" className="btn" disabled={isSubmitting}>
+                      
+                      Finalizar cadastro
+                    </button>  
                 </div>
             </Form>
         )}}  

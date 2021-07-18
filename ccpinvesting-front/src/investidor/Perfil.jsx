@@ -9,9 +9,21 @@ import chris from '../assets/chris.jpg';
 
 const StyledGrid = withStyles((theme) => ({
     root: {
-      margin:'0 80px 0'
+        display:'flex',
+        justifyContent:'center',
+        margin:'40px 0 0',
+        border:'solid',
+        borderWidth:'0.5px',
+        borderColor:'#f4511e',
     }
   }))(TableContainer);
+
+  const StyledTableContainer = withStyles((theme) =>({
+    root:{
+        
+    }
+  }))(TableContainer);
+
   
   const StyledTableCellAcaoNome = withStyles((theme) => ({
     root: {
@@ -70,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     },
     labelCarteira:{
         margin:'5px',
-        padding:'0 0 20px 50px',
+        padding:'0 0 20px 40px',
         
     },
     carteira:{
@@ -113,11 +125,6 @@ const Perfil = props => {
         await dispatch(buscarInvestidorPorLogin(login));
     }
 
-    const buscarCompras = async (investidor) => {
-
-    }
-    
-
     return (
         <div id="perfil">
             <Grid container className={classes.gridContainer} key={investidor.id} >
@@ -157,7 +164,7 @@ const Perfil = props => {
             <Container >
                 <StyledGrid container >
                     <Grid item xs={10} >
-                    <TableContainer component={Paper}>
+                    <StyledTableContainer component={Paper}>
                         <Table size="medium">
                             <TableBody >
 
@@ -178,7 +185,7 @@ const Perfil = props => {
                             
                         
                         </Table>
-                    </TableContainer>
+                    </StyledTableContainer>
                     </Grid>
                 </StyledGrid>
                 </Container>

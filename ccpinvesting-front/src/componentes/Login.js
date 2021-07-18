@@ -5,7 +5,7 @@ import '../index.css';
 import * as yup from 'yup';
 import { usuarioLogado } from '../redux/login/selectors'
 import { useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import login from '../assets/login.png'
 
 const LOGIN_INICIAL = {
