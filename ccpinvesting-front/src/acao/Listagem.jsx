@@ -11,11 +11,15 @@ import { comprar } from '../redux/compra/actions';
 import { COMPRA_INICIAL } from '../util/constantes';
 import { Form, Formik } from 'formik';
 import { buscarInvestidorPorLogin } from '../redux/investidor/actions';
+import * as yup from 'yup';
+import Alert from '@material-ui/lab/Alert';
+import { isSuccess } from '../redux/compra/selectors';
 // import { Cabecalho} from '../../componentes/Cabecalho'
 
 const StyledGrid = withStyles((theme) => ({
   root: {
-    margin:'0 80px 0'
+    display:'flex',
+    justifyContent:'center',
   }
 }))(TableContainer);
 
@@ -40,18 +44,36 @@ const StyledInput = withStyles((theme) =>({
     width:'50px',
     borderColor:'#f4511e'
   }
-}))(Input)
+}))(Input);
+
+const StyledButton = withStyles((theme) => ({
+  root:{
+    border: '0.5px solid #ff9204',
+    backgroundColor: '#ff9204 !important',
+    color: '#fff',
+    fontWeight: '700',
+    '&:hover': {
+      border: '0.5px solid #ff9204',
+      backgroundColor: '#ffffff !important',
+      color: '#ff9204',
+      fontWeight: '700',
+   },
+  }
+}))(Button);
 
 const Listagem = props => {
  
   const [open, setOpen] = React.useState(false);
+
   const isUsuarioLogado = useSelector(usuarioLogado);
-  const acoes = useSelector(getAcoes)
-  const investidor = useSelector(getInvestidor)
-  const loginInvestidor = useSelector(loginUsuario)
+  const acoes = useSelector(getAcoes);
+  const investidor = useSelector(getInvestidor);
+  const loginInvestidor = useSelector(loginUsuario);
+  const success = useSelector(isSuccess);
   // const compraInitial = useSelector(setCompra) 
   const dispatch = useDispatch();
-  const compraInitial = COMPRA_INICIAL
+  const compraInitial = COMPRA_INICIAL;
+
 
   useEffect(() =>{
     carregarAcoes();
@@ -68,9 +90,9 @@ const Listagem = props => {
   const carregarAcoes = async () => {
     await dispatch(buscarAcoes());
   }
-  const comprarAcao = compra => {
+  const comprarAcao = async (compra) => {
     console.log('dispatch',compra)
-    dispatch(comprar(compra))
+    await dispatch(comprar(compra))
   }
 
   const enviarCompra = (compra, acao) => {
@@ -88,6 +110,7 @@ const Listagem = props => {
           <StyledGrid container >
             <Grid item xs={10} >
               <TableContainer component={Paper}>
+               
                 <Table size="medium">
                   <TableBody >
 
@@ -118,12 +141,11 @@ const Listagem = props => {
                           validateOnMount
                           // initialValues={ compraInitial }
                           initialValues={ compraInitial }
-                          // validationSchema={yup.object().shape({ quantidade: yup.number().max(20, "maximo 20 por compra").required("requer") })}
+                          validationSchema={yup.object().shape({ quantidade: yup.number("Informe a quantidade").required().max(20, "maximo 20 por compra") })}
                           onSubmit={(compraInitial, acoes) => enviarCompra(compraInitial,acao.id)}
                           render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
                           return (
-                            <div>
-                              
+                            <div> 
                               <Collapse id="collapse" in={open} timeout="auto" unmountOnExit>
                                 <Form>
                                   <TableCell width="1%">
@@ -137,13 +159,24 @@ const Listagem = props => {
                                       // InputProps={{ inputProps: { min: 0, max: 10 } }}
                                       type="number"
                                       placeholder="Qtd."
-                                      
                                       />
                                   </TableCell>
+                                  
                                   <TableCell width="1%">
-                                    <button type="submit"  className='btn btnConfirmar' disabled={isSubmitting} >Confirmar</button>
-                                    {/* onClick={() => montarCompra(values.acaoId)} */}
+                                    <StyledButton 
+                                      type="submit"  
+                                      className='btnConfirmar' 
+                                      disabled={isSubmitting && !success} 
+                                      >
+                                        Confirmar
+                                    </StyledButton>
                                   </TableCell>
+                                  {/* {
+                                    isSubmitting &&
+                                    <TableCell>
+                                      <Alert severity="success"></Alert>
+                                    </TableCell>
+                                  } */}
                                 </Form>
                               
                               </Collapse>

@@ -38,3 +38,8 @@ export const COMPRA_INICIAL = {
     investidorId: 0,
     quantidade: 0
 }
+
+export const VENDA_INICIAL = {
+    investimentoId: 0,
+    investidorId: 0,
+}

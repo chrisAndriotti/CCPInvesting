@@ -1,11 +1,12 @@
 import React, { useEffect }  from 'react';
-import { Avatar, Collapse, Container, Grid, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, withStyles } from "@material-ui/core";
+import { Avatar, Button, Collapse, Container, Grid, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, withStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsuario } from '../redux/login/selectors';
 import { getInvestidor } from '../redux/investidor/selectors';
 import { buscarInvestidorPorLogin } from '../redux/investidor/actions'
 import  InputMask  from "react-input-mask";
 import chris from '../assets/chris.jpg';
+import { VENDA_INICIAL } from '../util/constantes';
 
 const StyledGrid = withStyles((theme) => ({
     root: {
@@ -116,6 +117,7 @@ const Perfil = props => {
     const dispatch = useDispatch();
     const loginInvestidor = useSelector(loginUsuario)
     const investidor = useSelector(getInvestidor);
+    const vendaInicial = VENDA_INICIAL;
 
     useEffect(() =>{
          (buscarInvestidor(loginInvestidor));
@@ -123,6 +125,16 @@ const Perfil = props => {
 
     const buscarInvestidor = async (login) => {
         await dispatch(buscarInvestidorPorLogin(login));
+    }
+
+    const venderAcao = async (venda) =>{
+        await dispatch(venderAcao(venda));
+    }
+
+    const venda = (investimentoId) =>{
+        vendaInicial.investimentoId=investimentoId
+        vendaInicial.investidorId=investidor.id
+        venderAcao(vendaInicial);
     }
 
     return (
@@ -175,7 +187,9 @@ const Perfil = props => {
                                     <TableCell width="30%" align="center">{investimento.acao.descricao}</TableCell>
                                     <TableCell width="20%" align="center">{investimento.acao.horaAtualizacao}</TableCell>
                                     <StyledTableCellAcaoValor width="20%" align="center"> {investimento.valor} BRL</StyledTableCellAcaoValor>
-        
+                                    <TableCell>
+                                        <Button className="btn" onClick={() => venda(investimento.id)}>Vender</Button>
+                                    </TableCell>
                                 </TableRow>
                     
                         
