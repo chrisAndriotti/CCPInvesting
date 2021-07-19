@@ -237,200 +237,200 @@ const Perfil = props => {
             </Grid>
             
             <Collapse in={open} timeout="auto" unmountOnExit>
-            <Grid container xs={12} className={classes.containerCollapse}>
-                <Grid item xs={9} id="dados">
-                    <h3>
-                        Dados pessoais
-                    </h3>
-                  
-                    <TextField
-                        className={classes.textField}
-                        name="nome"
-                        label="Primeiro nome"
-                        type="readonly"
-                        value={investidor.nome}
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                    />
-               
-        
-                    <TextField
-                        className={classes.textField}
-                        name="sobrenome"
-                        label="Sobrenome"
-                        type="text"
-                        value={investidor.sobrenome}
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                    />
-                    <InputMask 
-                        mask="999.999.999-99"
-                        type="text"
-                        value={investidor.cpf}
-                        
-                    >
-                    {() =>  <TextField
-                               className={classes.textField}
-                               name="cpf"
-                               label="CPF"
-                               InputProps={{
+                <Grid container xs={12} className={classes.containerCollapse}>
+                    <Grid item xs={9} id="dados">
+                        <h3>
+                            Dados pessoais
+                        </h3>
+                    
+                        <TextField
+                            className={classes.textField}
+                            name="nome"
+                            label="Primeiro nome"
+                            type="readonly"
+                            value={investidor.nome}
+                            InputProps={{
                                 classes: {
-                                    input: classes.resize,
+                                input: classes.resize,
                                 },
                             }}
                         />
-                    }       
+                
+            
+                        <TextField
+                            className={classes.textField}
+                            name="sobrenome"
+                            label="Sobrenome"
+                            type="text"
+                            value={investidor.sobrenome}
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                        />
+                        <InputMask 
+                            mask="999.999.999-99"
+                            type="text"
+                            value={investidor.cpf}
+                            
+                        >
+                        {() =>  <TextField
+                                className={classes.textField}
+                                name="cpf"
+                                label="CPF"
+                                InputProps={{
+                                    classes: {
+                                        input: classes.resize,
+                                    },
+                                }}
+                            />
+                        }       
 
-                    </InputMask>
-                    {/* <TextField
-                        className={classes.textField}
-                        name="cpf"
-                        label="CPF"
-                        type="text"
-                        value={investidor.cpf}
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                    /> */}
+                        </InputMask>
+                        {/* <TextField
+                            className={classes.textField}
+                            name="cpf"
+                            label="CPF"
+                            type="text"
+                            value={investidor.cpf}
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                        /> */}
 
-                    <TextField
-                        className={classes.textField}
-                        name="celular"
-                        label="Telefone"
-                        type="text"
-                        value={investidor.celular}
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                    />
+                        <TextField
+                            className={classes.textField}
+                            name="celular"
+                            label="Telefone"
+                            type="text"
+                            value={investidor.celular}
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                        />
+                        
+                        <TextField
+                            className={classes.textField}
+                            name="email"
+                            label="Email"
+                            type="email"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.email}
+                        />
+
+                        <TextField
+                            className={classes.textField}
+                            name="nascimento"
+                            label="Nascimento"
+                            type="date"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.nascimento}
+                        />
+
+                    </Grid> 
+                
                     
-                    <TextField
-                        className={classes.textField}
-                        name="email"
-                        label="Email"
-                        type="email"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.email}
-                    />
+                    <Grid item xs={9}>
+                        <Grid item xs={12}>
+                            <h3>
+                                Endereço
+                            </h3>
+                        </Grid>
+                        <Grid item xs={12}>
+                        <TextField
+                            className={classes.textField}
+                            name="pais"
+                            label="País"
+                            type="text"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.pais}
+                        />
 
-                    <TextField
-                        className={classes.textField}
-                        name="nascimento"
-                        label="Nascimento"
-                        type="date"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.nascimento}
-                    />
+                        <TextField
+                            className={classes.textField}
+                            name="estado"
+                            label="Estado"
+                            type="text"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.estado}
+                        />
 
-                </Grid> 
-             
-                
-                <Grid item xs={9}>
-                    <Grid item xs={12}>
-                        <h3>
-                            Endereço
-                        </h3>
-                    </Grid>
-                    <Grid item xs={12}>
-                    <TextField
-                        className={classes.textField}
-                        name="pais"
-                        label="País"
-                        type="text"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.pais}
-                    />
+                        <TextField
+                            className={classes.textField}
+                            name="cidade"
+                            label="Cidade"
+                            type="text"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.cidade}
+                        />
 
-                    <TextField
-                        className={classes.textField}
-                        name="estado"
-                        label="Estado"
-                        type="text"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.estado}
-                    />
+                        <TextField
+                            className={classes.textField}
+                            name="bairro"
+                            label="Bairro"
+                            type="text"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.bairro}
+                        />
 
-                    <TextField
-                        className={classes.textField}
-                        name="cidade"
-                        label="Cidade"
-                        type="text"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.cidade}
-                    />
+                        <TextField
+                            className={classes.textField}
+                            name="rua"
+                            label="Rua"
+                            type="text"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.rua}
+                        />
 
-                    <TextField
-                        className={classes.textField}
-                        name="bairro"
-                        label="Bairro"
-                        type="text"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.bairro}
-                    />
-
-                    <TextField
-                        className={classes.textField}
-                        name="rua"
-                        label="Rua"
-                        type="text"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.rua}
-                    />
-
-                    <TextField
-                        className={classes.textField}
-                        name="numero"
-                        label="Número"
-                        type="number"
-                        InputProps={{
-                            classes: {
-                              input: classes.resize,
-                            },
-                          }}
-                        value={investidor.numero}
-                    />
-                    </Grid>
-                </Grid>   
-                
-            </Grid>
+                        <TextField
+                            className={classes.textField}
+                            name="numero"
+                            label="Número"
+                            type="number"
+                            InputProps={{
+                                classes: {
+                                input: classes.resize,
+                                },
+                            }}
+                            value={investidor.numero}
+                        />
+                        </Grid>
+                    </Grid>   
+                    
+                </Grid>
             </Collapse>
             <Container >
                 <StyledGrid container >
