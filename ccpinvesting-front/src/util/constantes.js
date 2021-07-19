@@ -6,19 +6,16 @@ export const ACAO_INICIAL = {
 };
 
 export const INVESTIDOR_INICIAL = {
-    
 
     celular: "",
     cpf: "",
     email: "",
-    endereco: {
-        bairro: "",
-        cidade: "",
-        estado: "",
-        numero: 0,
-        pais: "",
-        rua: ""
-    },
+    bairro: "",
+    cidade: "",
+    estado: "",
+    numero: 0,
+    pais: "",
+    rua: "",
     nascimento: "",
     nome: "",
     sobrenome: "",

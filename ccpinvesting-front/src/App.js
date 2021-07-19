@@ -8,9 +8,9 @@ import Cabecalho from './componentes/Cabecalho';
 import Rodape from './componentes/Rodape';
 import Contato from './componentes/Contato';
 import Login from './pages/login/Login';
-import CadastroInvestidor from './pages/cadastroInvestidor/CadastroInvestidor'
 import Listagem from './acao/Listagem';
 import Perfil from './investidor/Perfil';
+import Cadastro from './investidor/Cadastro';
 
 class App extends Component {
   render() {
@@ -22,7 +22,7 @@ class App extends Component {
             <Route path="/inicio" exact component={Inicio} />
             <Route path="/acao" component={Listagem} />
             <Route path="/fale-conosco/salvar" component={Contato} />
-            <Route path="/investidor/cadastrar" component={CadastroInvestidor} />
+            <Route path="/investidor/cadastrar" component={Cadastro} />
             <Route path="/seguranca/login" component={Login} />
             <Route path="/perfil" component={Perfil} />
             <Rodape />

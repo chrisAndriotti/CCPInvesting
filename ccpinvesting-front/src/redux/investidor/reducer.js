@@ -1,4 +1,4 @@
-import { ARMAZENAR_INVESTIDOR, SETAR_INVESTIDOR_ATUAL, BUSCAR_INVESTIDOR_LOGADO, INVESTIDOR_LOCALIZADO } from "../investidor/types"
+import { ARMAZENAR_INVESTIDOR, SETAR_INVESTIDOR_ATUAL, BUSCAR_INVESTIDOR_LOGADO, INVESTIDOR_LOCALIZADO, INCLUIR_INVESTIDOR } from "../investidor/types"
 
 const INITIAL_STATE = {}
 
@@ -13,6 +13,10 @@ const InvestidorReducer = (state = INITIAL_STATE, action) => {
         case ARMAZENAR_INVESTIDOR:
             console.log("Entrou no Reducer investidor", action.payload);
             return armazenarInvestidor(state, action);
+        
+        case INCLUIR_INVESTIDOR:
+            console.log("incluir investidor reducer", action.payload);
+            return{...state, investidor: action.payload}
 
         case SETAR_INVESTIDOR_ATUAL:
             return { ...state, investidorAtual: action.investidorAtual };
@@ -25,7 +29,7 @@ const InvestidorReducer = (state = INITIAL_STATE, action) => {
 }
 
 const armazenarInvestidor = (state, action) => {
-    return { ...state, investidore: action.payload }
+    return { ...state, investidor: action.payload }
 }
 
 export default InvestidorReducer;

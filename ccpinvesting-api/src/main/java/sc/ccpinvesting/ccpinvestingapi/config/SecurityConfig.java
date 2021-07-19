@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers(HttpMethod.POST, "/acao/**").hasAuthority("ADMIN")
             .antMatchers(HttpMethod.GET, "/compra/**").permitAll()
             .antMatchers(HttpMethod.GET,"investidor/buscar-usuario/**").permitAll()
+            .antMatchers(HttpMethod.GET,"investidor/**").hasAnyAuthority("USER")
             .antMatchers("/investidor/cadastrar/**").permitAll()
             .antMatchers("/seguranca/login/**").permitAll()
             .antMatchers("/swagger-resources/**").permitAll()

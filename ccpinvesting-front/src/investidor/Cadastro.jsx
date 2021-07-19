@@ -1,29 +1,26 @@
-import { Grid, makeStyles, TextField } from "@material-ui/core";
+import { Button, Grid, makeStyles, TextField } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import { Form, Formik } from "formik";
 import  InputMask  from "react-input-mask";
+import { useDispatch } from "react-redux";
 import * as yup from 'yup';
+import { cadastrarInvestidor } from "../redux/investidor/actions";
+import { INVESTIDOR_INICIAL } from "../util/constantes";
 
-
-const INVESTIDOR_INICIAL = {
-   
-    celular: "",
-    cpf: "",
-    email: "",
-    bairro: "",
-    cidade: "",
-    estado: "",
-    numero: 0,
-    pais: "",
-    rua: "",
-    nascimento: "",
-    nome: "",
-    sobrenome: "",
-    usuario: {
-        login: "",
-        senha: ""
-    }
-}
+const StyledButton = withStyles((theme) => ({
+  root:{
+    border: '0.5px solid #f4511e',
+    backgroundColor: '#f4511e !important',
+    color: '#fff',
+    fontWeight: '700',
+    '&:hover': {
+      border: '0.5px solid #f4511e',
+      backgroundColor: '#ffffff !important',
+      color: '#f4511e',
+      fontWeight: '700',
+   },
+  }
+}))(Button);
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -67,29 +64,39 @@ const StyledTextField = withStyles((theme) =>({
 
 const InvestidorSchema = yup.object().shape({
     usuario: yup.object().shape({ 
-        login: yup.string().required('Informe um usuário para login').max(50, 'O campo deve ter no máximo 50 carateres'),
-        senha: yup.string().required('Informe uma senha').max(50, 'O campo deve ter no máximo 50 carateres')
+        login: yup.string().max(50, 'O campo deve ter no máximo 50 carateres'),
+        senha: yup.string().max(50, 'O campo deve ter no máximo 50 carateres')
     }),
     // senha2: yup.string().required('Repita a senha').max(50, 'O campo deve ter no máximo 50 carateres'),
-    nome: yup.string().required('Informe o seu nome').max(25, 'Informe somente o primeiro nome'),
-    sobrenome: yup.string().required('Informe seu sobrenome'),
-    cpf: yup.string().required('Informe seu CPF').max(11, 'Digite os 11 numeros do CPF.')
+    nome: yup.string().max(25, 'Informe somente o primeiro nome'),
+    sobrenome: yup.string().max(25, 'Informe somente o primeiro nome'),
+    cpf: yup.string().max(11, 'Digite os 11 numeros do CPF.')
 });
 
 const Cadastro = props => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const salvar =  investidor => {
+      console.log('dispatch cadastro',investidor)
+       dispatch(cadastrarInvestidor(investidor))
+  }
 
     const salvarInvestidor = (investidor, acoes) => {
             console.log("investidor ", investidor);
             acoes.setSubmitting(true);
-            props.salvar(investidor);
+            salvar(investidor);
             acoes.resetForm();
     }
+
+   
+
     return (
         <Formik
         enableReinitialize
         validateOnMount
-        validationSchema={InvestidorSchema}
+        // validationSchema={InvestidorSchema}
+        validator={() => ({})}
         initialValues={ INVESTIDOR_INICIAL }
         onSubmit={(investidor, acoes) => salvarInvestidor(investidor, acoes)}
         render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
@@ -101,7 +108,7 @@ const Cadastro = props => {
 
                         <StyledTextField
                             className={classes.textField}
-                            name="usuario.login"
+                            name="login"
                             label="Usuário"
                             type="text"
                             value={values.usuario.login}
@@ -118,10 +125,10 @@ const Cadastro = props => {
 
                         <StyledTextField
                             className={classes.textField}
-                            name="usuario.senha"
+                            name="senha"
                             label="Senha"
                             type="password"
-                            value={values.senha}
+                            value={values.usuario.senha}
                             error={touched.senha && errors.senha}
                             helperText={touched.senha && errors.senha}
                             onFocus={() => setFieldTouched('usuario.senha')}
@@ -191,6 +198,7 @@ const Cadastro = props => {
                         <InputMask 
                             mask="999.999.999-99"
                             type="text"
+                            name="cpf"
                             value={values.cpf}
                             error={touched.cpf && errors.cpf}
                             helperText={touched.cpf && errors.cpf}
@@ -200,7 +208,7 @@ const Cadastro = props => {
                         >
                             {() =>  <StyledTextField
                                         className={classes.textField}
-                                        name="cpf"
+                                        
                                         label="CPF" 
                                         InputProps={{
                                           classes: {
@@ -246,17 +254,18 @@ const Cadastro = props => {
                             onChange={event => setFieldValue('email', event.target.value)}
                         />
 
-                        <InputMask 
+                        {/* <InputMask 
                            
-                        
-                            value={values.nascimento}
-                            error={touched.nascimento && errors.nascimento}
-                            helperText={touched.nascimento && errors.nascimento}
-                            onFocus={() => setFieldTouched('nascimento')}
-                            InputLabelProps={{ shrink: true }}
-                            InputProps={{
+                          name="nascimento"
+                          value={values.nascimento}
+                          error={touched.nascimento && errors.nascimento}
+                          helperText={touched.nascimento && errors.nascimento}
+                          onFocus={() => setFieldTouched('nascimento')}
+                          InputLabelProps={{ shrink: true }}
+                          InputProps={{
                             classes: {
-                              input: classes.resize,
+                                input: classes.resize,
+                                shrink: true,
                             },
                           }}
                             onChange={event => setFieldValue('nascimento', event.target.value)}
@@ -264,13 +273,33 @@ const Cadastro = props => {
 
                             {() => <StyledTextField
                                         className={classes.textField}
-                                        name="nascimento"
+                                        
                                         label="Nascimento"
                                         type="date"
+                                        defaultValue="2000-01-01"
                                     />
                             }    
-                        </InputMask>
-                        
+                        </InputMask> */}
+                        <StyledTextField
+                          name="nascimento"
+                          className={classes.textField}                 
+                          label="Nascimento"
+                          type="date"
+                          value={values.nascimento}
+                          error={touched.nascimento && errors.nascimento}
+                          helperText={touched.nascimento && errors.nascimento}
+                          onFocus={() => setFieldTouched('nascimento')}
+                          InputLabelProps={{ shrink: true }}
+                          InputProps={{
+                            classes: {
+                                input: classes.resize,
+                            
+                            },
+                          }}
+                            onChange={event => setFieldValue('nascimento', event.target.value)}
+                        >
+
+                        </StyledTextField>
                     </div> 
                     <div className={classes.divs}>
                         <h3>
@@ -380,15 +409,15 @@ const Cadastro = props => {
                     </div>   
                 </Grid>
                 <div className={classes.botao}>
-                  {isSubmitting && 
+                  {/* {isSubmitting && 
 
-                   <button type="submit" className="btn" disabled={isSubmitting}>Enviando</button>
+                   <StyledButton type="submit" className="btn" disabled={isSubmitting}>Enviando</StyledButton>
                    
-                  }
-                    <button type="submit" className="btn" disabled={isSubmitting}>
+                  } */}
+                    <StyledButton type="submit" className="btn" disabled={isSubmitting}>
                       
                       Finalizar cadastro
-                    </button>  
+                    </StyledButton>  
                 </div>
             </Form>
         )}}  

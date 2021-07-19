@@ -3,6 +3,7 @@ import acaoSaga from './acao/sagas';
 import compraSaga from './compra/sagas';
 import investidorSaga from './investidor/sagas';
 import loginSaga from './login/sagas';
+import transacaoSaga from './transacao/sagas';
 import vendaSaga from './venda/sagas';
 
 export default function* rootSaga(){
@@ -11,6 +12,7 @@ export default function* rootSaga(){
         investidorSaga(),
         loginSaga(),
         compraSaga(),
-        vendaSaga()
+        vendaSaga(),
+        transacaoSaga()
     ])
 }

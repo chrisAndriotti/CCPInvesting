@@ -25,7 +25,7 @@ public class Investidor {
     @Column(nullable = false, length = 50)
     private String sobrenome;
 
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 14)
     private String cpf;
 
     @Column(nullable = false, length = 50)
@@ -34,25 +34,25 @@ public class Investidor {
     @Column(nullable = false, length = 50)
     private String celular;
     
-    @Column(nullable = false)
+
     private LocalDate nascimento;
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String rua;
 
-    @Column(nullable = false, length = 30)
+    @Column(length = 30)
     private String bairro;
    
-    @Column(nullable = false, length = 10)
+    @Column(length = 10)
     private Integer numero;
 
-    @Column(nullable = false, length = 25)
+    @Column(length = 25)
     private String cidade;
 
-    @Column(nullable = false, length =  15)
+    @Column(length =  15)
     private String estado;
 
-    @Column(nullable = false, length = 10)
+    @Column(length = 10)
     private String pais;
     
     @Column

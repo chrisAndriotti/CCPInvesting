@@ -44,6 +44,7 @@ function* buscarInvestidorPorLogin(action){
 }
 
 function* incluirInvestidor(action){
+    console.log('sagas incluir investidor', action.payload)
     yield call(InvestidorAPI.cadastrarInvestidor, action.payload);
 }
 
