@@ -20,6 +20,7 @@ public class VendaController {
     @PostMapping
     public Investidor venderAcao(@RequestBody Venda venda)
     {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>venda"+venda.toString());
         return vendaService.vendaAcao(venda);
     }
 

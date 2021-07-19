@@ -74,7 +74,7 @@ public class VendaService {
         investidorLocalizado.setCarteira(carteiraInvestidor);
         investimento.setAtivo(false);
 
-        investidorService.cadastrar(investidorLocalizado);
+        investidorService.atualizar(investidorId,investidorLocalizado);
         vendaRepository.save(venda);
         
         return investidorLocalizado;

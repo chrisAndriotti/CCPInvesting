@@ -14,7 +14,7 @@ public class Venda {
     private Integer id;
 
     @Column
-    private Integer idInvestor;
+    private Integer idInvestidor;
 
     @Column
     private Integer idInvestimento;
@@ -22,9 +22,9 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(Integer id, Integer idInvestor, Integer idInvestimento) {
+    public Venda(Integer id, Integer idInvestidor, Integer idInvestimento) {
         this.id = id;
-        this.idInvestor = idInvestor;
+        this.idInvestidor = idInvestidor;
         this.idInvestimento = idInvestimento;
     }
 
@@ -37,11 +37,11 @@ public class Venda {
     }
 
     public Integer getIdInvestor() {
-        return idInvestor;
+        return idInvestidor;
     }
 
     public void setIdInvestor(Integer idInvestor) {
-        this.idInvestor = idInvestor;
+        this.idInvestidor = idInvestor;
     }
 
     public Integer getIdInvestimento() {

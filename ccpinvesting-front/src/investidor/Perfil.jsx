@@ -7,6 +7,12 @@ import { buscarInvestidorPorLogin } from '../redux/investidor/actions'
 import  InputMask  from "react-input-mask";
 import chris from '../assets/chris.jpg';
 import { VENDA_INICIAL } from '../util/constantes';
+import { vender } from '../redux/venda/actions';
+import CheckSharpIcon from '@material-ui/icons/CheckSharp';
+import ClearSharpIcon from '@material-ui/icons/ClearSharp';
+import Brightness1Icon from '@material-ui/icons/Brightness1';
+import { green } from '@material-ui/core/colors';
+import { useHistory } from 'react-router-dom';
 
 const StyledGrid = withStyles((theme) => ({
     root: {
@@ -39,6 +45,22 @@ const StyledGrid = withStyles((theme) => ({
       font: '400 14px Lato, sans-serif'
     }
   }))(TableCell);
+
+  const StyledBrightness1IconAtivo = withStyles((theme) =>({
+    root:{
+        fontSize: '10px',
+        color: '#89f41e',
+
+    }
+  }))(Brightness1Icon)
+
+  const StyledBrightness1IconInativo = withStyles((theme) => ({
+    root:{
+        fontSize: '10px',
+        color: '#f41e1e',
+
+    }
+  }))(Brightness1Icon)
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -117,7 +139,8 @@ const Perfil = props => {
     const dispatch = useDispatch();
     const loginInvestidor = useSelector(loginUsuario)
     const investidor = useSelector(getInvestidor);
-    const vendaInicial = VENDA_INICIAL;
+    const history = useHistory();
+    // const vendaInicial = VENDA_INICIAL;
 
     useEffect(() =>{
          (buscarInvestidor(loginInvestidor));
@@ -128,14 +151,26 @@ const Perfil = props => {
     }
 
     const venderAcao = async (venda) =>{
-        await dispatch(venderAcao(venda));
+        await dispatch(vender(venda));
     }
 
-    const venda = (investimentoId) =>{
-        vendaInicial.investimentoId=investimentoId
-        vendaInicial.investidorId=investidor.id
+    const venda = (investimentoId, investidorId) =>{
+        const vendaInicial={
+            idInvestimento:investimentoId,
+            idInvestor:investidorId
+
+        }
         venderAcao(vendaInicial);
     }
+
+    const telaVendas = () => {
+        history.push("/acao")
+    }
+
+ 
+    const investimentos = investidor.investimento;
+    const INVESTIMENTOS_VAZIO = "Sem investimentos no momento"
+   
 
     return (
         <div id="perfil">
@@ -179,21 +214,35 @@ const Perfil = props => {
                     <StyledTableContainer component={Paper}>
                         <Table size="medium">
                             <TableBody >
-
-                            {investidor.investimento.map(investimento =>([
+                            
+                            {investimentos.map(investimento =>([
                             
                                 <TableRow key={investimento.id} className="table" href="#collapse">
+                                    <TableCell>
+                                        {investimento.ativo &&
+                                            <StyledBrightness1IconAtivo ></StyledBrightness1IconAtivo>
+                                        }
+                                        {!investimento.ativo &&
+                                            <StyledBrightness1IconInativo color="danger"></StyledBrightness1IconInativo>
+                                        }
+                                    </TableCell>
                                     <StyledTableCellAcaoNome width="20%" align="center">{investimento.acao.nome}</StyledTableCellAcaoNome>
                                     <TableCell width="30%" align="center">{investimento.acao.descricao}</TableCell>
                                     <TableCell width="20%" align="center">{investimento.acao.horaAtualizacao}</TableCell>
                                     <StyledTableCellAcaoValor width="20%" align="center"> {investimento.valor} BRL</StyledTableCellAcaoValor>
                                     <TableCell>
-                                        <Button className="btn" onClick={() => venda(investimento.id)}>Vender</Button>
+                                    {investimento.ativo &&
+                                        <Button className="btn" onClick={() => venda(investimento.id, investidor.id)}>Vender</Button>
+                                    }
+                                    {!investimento.ativo &&
+                                        <Button className="btn" onClick={() => telaVendas()}>Comprar novamente</Button>
+                                    }
+                                    
                                     </TableCell>
                                 </TableRow>
                     
                         
-                            ]))}
+                            ])) || INVESTIMENTOS_VAZIO}
                             
                             </TableBody>
                             
