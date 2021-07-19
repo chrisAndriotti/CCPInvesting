@@ -2,7 +2,7 @@ import React, { useEffect }  from 'react';
 import { Avatar, Button, Collapse, Container, Grid, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, withStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsuario } from '../redux/login/selectors';
-import { getInvestidor } from '../redux/investidor/selectors';
+import { getInvestidor, getInvestimentos } from '../redux/investidor/selectors';
 import { buscarInvestidorPorLogin } from '../redux/investidor/actions'
 import  InputMask  from "react-input-mask";
 import chris from '../assets/chris.jpg';
@@ -19,15 +19,19 @@ const StyledGrid = withStyles((theme) => ({
         display:'flex',
         justifyContent:'center',
         margin:'40px 0 0',
-        border:'solid',
-        borderWidth:'0.5px',
-        borderColor:'#f4511e',
+        padding:'20px',
+        // border:'solid',
+        // borderWidth:'0.5px',
+        // borderColor:'#f4511e',
     }
   }))(TableContainer);
 
   const StyledTableContainer = withStyles((theme) =>({
     root:{
-        
+        padding:'10px',
+        border:'solid',
+        borderWidth:'0.5px',
+        borderColor:'#f4511e',
     }
   }))(TableContainer);
 
@@ -61,6 +65,21 @@ const StyledGrid = withStyles((theme) => ({
 
     }
   }))(Brightness1Icon)
+
+  const StyledButton = withStyles((theme) => ({
+    root:{
+      border: '0.5px solid #f4511e',
+      backgroundColor: '#f4511e !important',
+      color: '#fff',
+      fontWeight: '700',
+      '&:hover': {
+        border: '0.5px solid #f4511e',
+        backgroundColor: '#ffffff !important',
+        color: '#f4511e',
+        fontWeight: '700',
+     },
+    }
+  }))(Button);
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -130,15 +149,23 @@ const useStyles = makeStyles((theme) => ({
     h4:{
         color:'#ffff'
     },
+    containerCollapse:{
+        display:'flex',
+        justifyContent:'center',
+        padding:'20px 0 0 0'
+        
+    }
 
 }));
 
 const Perfil = props => {
     const [open, setOpen] = React.useState(false);
+    const [openDeposito, setopenDeposito] = React.useState(false);
     const classes = useStyles();
     const dispatch = useDispatch();
     const loginInvestidor = useSelector(loginUsuario)
     const investidor = useSelector(getInvestidor);
+    const investimentos = useSelector(getInvestimentos);
     const history = useHistory();
     // const vendaInicial = VENDA_INICIAL;
 
@@ -168,13 +195,13 @@ const Perfil = props => {
     }
 
  
-    const investimentos = investidor.investimento;
+    // const investimentos = investidor.investimento;
     const INVESTIMENTOS_VAZIO = "Sem investimentos no momento"
    
 
     return (
         <div id="perfil">
-            <Grid container className={classes.gridContainer} key={investidor.id} >
+            <Grid container id="myPage"className={classes.gridContainer} key={investidor.id} >
                 <Grid item md={0.5} className={classes.divAvatar}>  
                     <Avatar className={classes.avatar} spacing={1} src={chris} />
                 </Grid>
@@ -208,53 +235,10 @@ const Perfil = props => {
 
            
             </Grid>
-            <Container >
-                <StyledGrid container >
-                    <Grid item xs={10} >
-                    <StyledTableContainer component={Paper}>
-                        <Table size="medium">
-                            <TableBody >
-                            
-                            {investimentos.map(investimento =>([
-                            
-                                <TableRow key={investimento.id} className="table" href="#collapse">
-                                    <TableCell>
-                                        {investimento.ativo &&
-                                            <StyledBrightness1IconAtivo ></StyledBrightness1IconAtivo>
-                                        }
-                                        {!investimento.ativo &&
-                                            <StyledBrightness1IconInativo color="danger"></StyledBrightness1IconInativo>
-                                        }
-                                    </TableCell>
-                                    <StyledTableCellAcaoNome width="20%" align="center">{investimento.acao.nome}</StyledTableCellAcaoNome>
-                                    <TableCell width="30%" align="center">{investimento.acao.descricao}</TableCell>
-                                    <TableCell width="20%" align="center">{investimento.acao.horaAtualizacao}</TableCell>
-                                    <StyledTableCellAcaoValor width="20%" align="center"> {investimento.valor} BRL</StyledTableCellAcaoValor>
-                                    <TableCell>
-                                    {investimento.ativo &&
-                                        <Button className="btn" onClick={() => venda(investimento.id, investidor.id)}>Vender</Button>
-                                    }
-                                    {!investimento.ativo &&
-                                        <Button className="btn" onClick={() => telaVendas()}>Comprar novamente</Button>
-                                    }
-                                    
-                                    </TableCell>
-                                </TableRow>
-                    
-                        
-                            ])) || INVESTIMENTOS_VAZIO}
-                            
-                            </TableBody>
-                            
-                        
-                        </Table>
-                    </StyledTableContainer>
-                    </Grid>
-                </StyledGrid>
-                </Container>
+            
             <Collapse in={open} timeout="auto" unmountOnExit>
-            <div className="">
-                <div className={classes.divs} id="dados">
+            <Grid container xs={12} className={classes.containerCollapse}>
+                <Grid item xs={9} id="dados">
                     <h3>
                         Dados pessoais
                     </h3>
@@ -356,15 +340,16 @@ const Perfil = props => {
                         value={investidor.nascimento}
                     />
 
-                </div> 
+                </Grid> 
              
                 
-                <div className={classes.divs}>
-            
-                    <h3>
-                        Endereço
-                    </h3>
-
+                <Grid item xs={9}>
+                    <Grid item xs={12}>
+                        <h3>
+                            Endereço
+                        </h3>
+                    </Grid>
+                    <Grid item xs={12}>
                     <TextField
                         className={classes.textField}
                         name="pais"
@@ -442,11 +427,55 @@ const Perfil = props => {
                           }}
                         value={investidor.numero}
                     />
-
-                </div>   
+                    </Grid>
+                </Grid>   
                 
-            </div>
+            </Grid>
             </Collapse>
+            <Container >
+                <StyledGrid container >
+                    <Grid item xs={10} >
+                    <StyledTableContainer component={Paper}>
+                        <Table size="medium">
+                            <TableBody >
+                            
+                            {investimentos.map(investimento =>([
+                            
+                                <TableRow key={investimento.id} className="table" href="#collapse">
+                                    <TableCell>
+                                        {investimento.ativo &&
+                                            <StyledBrightness1IconAtivo ></StyledBrightness1IconAtivo>
+                                        }
+                                        {!investimento.ativo &&
+                                            <StyledBrightness1IconInativo color="danger"></StyledBrightness1IconInativo>
+                                        }
+                                    </TableCell>
+                                    <StyledTableCellAcaoNome width="20%" align="center">{investimento.acao.nome}</StyledTableCellAcaoNome>
+                                    <TableCell width="30%" align="center">{investimento.acao.descricao}</TableCell>
+                                    <TableCell width="20%" align="center">{investimento.acao.horaAtualizacao}</TableCell>
+                                    <StyledTableCellAcaoValor width="20%" align="center"> {investimento.valor} BRL</StyledTableCellAcaoValor>
+                                    <TableCell>
+                                    {investimento.ativo &&
+                                        <StyledButton className="btn" onClick={() => venda(investimento.id, investidor.id)}>Vender</StyledButton>
+                                    }
+                                    {!investimento.ativo &&
+                                        <StyledButton className="btn" onClick={() => telaVendas()}>Comprar novamente</StyledButton>
+                                    }
+                                    
+                                    </TableCell>
+                                </TableRow>
+                    
+                        
+                            ])) || INVESTIMENTOS_VAZIO}
+                            
+                            </TableBody>
+                            
+                        
+                        </Table>
+                    </StyledTableContainer>
+                    </Grid>
+                </StyledGrid>
+            </Container>
         </div>
        
             
