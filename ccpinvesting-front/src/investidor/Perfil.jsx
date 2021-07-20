@@ -204,6 +204,7 @@ const Perfil = props => {
 
     useEffect(() =>{
          (buscarInvestidor(loginInvestidor));
+         
     }, []);
 
     const buscarInvestidor = async (login) => {
@@ -216,24 +217,24 @@ const Perfil = props => {
 
     const enviarDeposito = async (deposito) => {
         await dispatch(depositar(deposito))
+        alert('deposito enviado')
     }
 
-    const deposito = (investidorId, valor) => {
-        const depositoInicial={
-            idInvestidor:investidorId,
-            valor:valor
-        }
-
-        enviarDeposito(depositoInicial);
+    const montarDeposito = (deposito,acoes) => {
+        acoes.setSubmitting(true);
+        deposito.idInvestidor=investidor.id
+        enviarDeposito(deposito);
+        acoes.resetForm();
     }
 
-    const venda = (investimentoId, investidorId) =>{
+    const venda = (investimentoId, investidorId, acoes) =>{
         const vendaInicial={
             idInvestimento:investimentoId,
             idInvestor:investidorId
 
         }
         venderAcao(vendaInicial);
+        
     }
 
     const telaVendas = () => {
@@ -291,7 +292,7 @@ const Perfil = props => {
                             // validationSchema={InvestidorSchema}
                             validator={() => ({})}
                             initialValues={ DEPOSITO_INICIAL }
-                            onSubmit={(deposito, acoes) => enviarDeposito(deposito, acoes)}
+                            onSubmit={(deposito,acoes) => montarDeposito(deposito,acoes)}
                             render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
                             return (
                                 <Form>
@@ -304,7 +305,6 @@ const Perfil = props => {
                                             value={values.valor}
                                             error={touched.valor && errors.valor}
                                             helperText={touched.valor && errors.valor}
-                                            
                                             startAdornment={<InputAdornment position="start">R$</InputAdornment>}
                                             onFocus={() => setFieldTouched('valor')}
                                             InputProps={{
@@ -318,7 +318,7 @@ const Perfil = props => {
                                        
                                  
                                     {/* <StyledGridButton item xs={3} > */}
-                                        <StyledButtonTransacao >Enviar</StyledButtonTransacao>
+                                        <StyledButtonTransacao type="submit" disabled={isSubmitting} >Depositar</StyledButtonTransacao>
                                     </StyledGridButton>
                                 </Form>
                             )}}  

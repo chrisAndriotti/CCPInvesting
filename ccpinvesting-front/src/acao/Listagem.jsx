@@ -95,12 +95,14 @@ const Listagem = props => {
     await dispatch(comprar(compra))
   }
 
-  const enviarCompra = (compra, acao) => {
+  const enviarCompra = (compra, acao, acoes) => {
+    acoes.setSubmitting(true);
     compra.acaoId=acao
     compra.investidorId=investidor.id
     compra.quantidade=parseInt(compra.quantidade)
     console.log("compra:",compra)
     comprarAcao(compra)
+    acoes.resetForm();
   }
 
     return (
@@ -142,7 +144,7 @@ const Listagem = props => {
                           // initialValues={ compraInitial }
                           initialValues={ compraInitial }
                           validationSchema={yup.object().shape({ quantidade: yup.number("Informe a quantidade").required().max(20, "maximo 20 por compra") })}
-                          onSubmit={(compraInitial, acoes) => enviarCompra(compraInitial,acao.id)}
+                          onSubmit={(compraInitial, acoes) => enviarCompra(compraInitial,acao.id,acoes)}
                           render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
                           return (
                             <div> 
