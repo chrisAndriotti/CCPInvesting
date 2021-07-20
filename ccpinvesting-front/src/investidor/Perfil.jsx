@@ -1,18 +1,20 @@
 import React, { useEffect }  from 'react';
-import { Avatar, Button, Collapse, Container, Grid, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, withStyles } from "@material-ui/core";
+import { Avatar, Button, Collapse, Container, Grid, InputAdornment, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, withStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsuario } from '../redux/login/selectors';
 import { getInvestidor, getInvestimentos } from '../redux/investidor/selectors';
 import { buscarInvestidorPorLogin } from '../redux/investidor/actions'
 import  InputMask  from "react-input-mask";
 import chris from '../assets/chris.jpg';
-import { VENDA_INICIAL } from '../util/constantes';
+import { DEPOSITO_INICIAL, VENDA_INICIAL } from '../util/constantes';
 import { vender } from '../redux/venda/actions';
 import CheckSharpIcon from '@material-ui/icons/CheckSharp';
 import ClearSharpIcon from '@material-ui/icons/ClearSharp';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 import { green } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
+import { Form, Formik } from 'formik';
+import { depositar } from '../redux/transacao/actions';
 
 const StyledGrid = withStyles((theme) => ({
     root: {
@@ -81,6 +83,29 @@ const StyledGrid = withStyles((theme) => ({
     }
   }))(Button);
 
+  const StyledButtonTransacao = withStyles((theme) => ({
+    root:{
+        border: '0.5px solid #f4511e',
+        backgroundColor: '#f4511e !important',
+        color: '#fff',
+        fontWeight: '700',
+        margin:'25px',
+        '&:hover': {
+          border: '0.5px solid #f4511e',
+          backgroundColor: '#ffffff !important',
+          color: '#f4511e',
+          fontWeight: '700',
+       },
+      }
+  }))(Button);
+
+  const StyledGridButton = withStyles((theme) => ({
+    root:{
+        display:'flex',
+        justifyContent:'center',
+    }
+  }))(Grid);
+
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
@@ -99,9 +124,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize:'12px',
         width: '25em',
     },
+    textFieldValorDeposito: {
+        margin:'10px',
+        fontSize:'12px',
+    },
     botao: {
         padding: '50px 0 0',
-        background:'blue',
         alignSelf:'top'
     },
     resize:{
@@ -154,6 +182,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent:'center',
         padding:'20px 0 0 0'
         
+    },
+    containerCollapseDeposito:{
+        display:'flex',
+        justifyContent:'center',
+        padding:'20px 0 0 0',
     }
 
 }));
@@ -179,6 +212,19 @@ const Perfil = props => {
 
     const venderAcao = async (venda) =>{
         await dispatch(vender(venda));
+    }
+
+    const enviarDeposito = async (deposito) => {
+        await dispatch(depositar(deposito))
+    }
+
+    const deposito = (investidorId, valor) => {
+        const depositoInicial={
+            idInvestidor:investidorId,
+            valor:valor
+        }
+
+        enviarDeposito(depositoInicial);
     }
 
     const venda = (investimentoId, investidorId) =>{
@@ -227,7 +273,7 @@ const Perfil = props => {
                     </h4>
                 </Grid>
                 <Grid item xs={0.5} className={classes.btnDepositar}>
-                    <button className='btn btnPerfil'>Depositar</button>
+                    <button className='btn btnPerfil' onClick={() => setopenDeposito(!openDeposito)}>Depositar</button>
                 </Grid>
                 <Grid item xs={0.5} className={classes.btnSacar}>
                     <button className='btn btnPerfil'>Sacar</button>
@@ -235,7 +281,51 @@ const Perfil = props => {
 
            
             </Grid>
-            
+            <Collapse in={openDeposito} timeout="auto" unmountOnExit>
+                <Grid container xs={12} className={classes.containerCollapseDeposito}>
+                    <Grid item xs={5} className="table">
+                        
+                        <Formik
+                            enableReinitialize
+                            validateOnMount
+                            // validationSchema={InvestidorSchema}
+                            validator={() => ({})}
+                            initialValues={ DEPOSITO_INICIAL }
+                            onSubmit={(deposito, acoes) => enviarDeposito(deposito, acoes)}
+                            render={({values, touched, errors, isSubmitting, setFieldTouched, setFieldValue}) =>{
+                            return (
+                                <Form>
+                                    <StyledGridButton item xs={12} >
+                                        <TextField
+                                            className={classes.textFieldValorDeposito}
+                                            name="valor"
+                                            label="Informe o valor do depósito"
+                                            type="number"
+                                            value={values.valor}
+                                            error={touched.valor && errors.valor}
+                                            helperText={touched.valor && errors.valor}
+                                            
+                                            startAdornment={<InputAdornment position="start">R$</InputAdornment>}
+                                            onFocus={() => setFieldTouched('valor')}
+                                            InputProps={{
+                                            classes: {
+                                              input: classes.resize,
+                                            },
+                                          }}
+                                            onChange={event => setFieldValue('valor', event.target.value)}
+                                        />
+
+                                       
+                                 
+                                    {/* <StyledGridButton item xs={3} > */}
+                                        <StyledButtonTransacao >Enviar</StyledButtonTransacao>
+                                    </StyledGridButton>
+                                </Form>
+                            )}}  
+                        />
+                    </Grid>            
+                </Grid>
+            </Collapse>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <Grid container xs={12} className={classes.containerCollapse}>
                     <Grid item xs={9} id="dados">

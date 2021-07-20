@@ -40,3 +40,8 @@ export const VENDA_INICIAL = {
     investimentoId: 0,
     investidorId: 0,
 }
+
+export const DEPOSITO_INICIAL = {
+    idInvestidor: 0,
+    valor: 0
+}
