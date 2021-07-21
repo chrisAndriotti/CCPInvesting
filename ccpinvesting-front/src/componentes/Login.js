@@ -47,9 +47,8 @@ const useStyles = makeStyles((theme) => ({
     
   },
   divAvatarLogin:{
-  
-    margin:'80px 0 0 490px',
-    maxWidth:'150px'
+    margin:'80px 0 0 0',
+    maxWidth:'160px'
   }
 
 }))
@@ -79,7 +78,7 @@ const Login = props =>{
 
   return (
     <div>
-      <div className="container">  
+      <div className={classes.container}>  
         <div className={classes.divAvatarLogin}>
           <div className="thumbnail">
             <img src={login} className={classes.avatarLogin} alt="Christofer"/>
@@ -105,7 +104,7 @@ const Login = props =>{
                 name="login"
                 value={values.login}
                 item xs={11}
-                label="login"
+                label="usuario"
                 error={touched.login && errors.login}
                 helperText={touched.login && errors.login}
                 onFocus={() => setFieldTouched('login')}
