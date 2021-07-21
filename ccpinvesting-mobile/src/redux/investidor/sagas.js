@@ -8,9 +8,7 @@ function* watchBuscarInvestidorPorLogin(){
 }
 
 function* buscarInvestidorPorLogin(action){
-    const investidor = yield call(InvestidorAPI.buscarInvestidorPorLogin, action.payload);
-    console.log("buscarInvestidorPorLogin",investidor)
-    yield put({ type: types.INVESTIDOR_LOCALIZADO, investidor: investidor})
+    yield call(InvestidorAPI.buscarInvestidorPorLogin, action.payload);
 }
 
 export default function* investidorSaga(){

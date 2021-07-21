@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Header } from 'react-native-elements';
 import { Provider } from 'react-redux';
+import Perfil from './src/investidor/Perfil.js';
 import Login from './src/login/Login.js';
 import store from './src/redux/store.js'
 
@@ -11,7 +12,7 @@ export default function App() {
     <Provider store={store}>
       <View style={styles.container}>
         
-            <Login />
+            <Perfil />
 
           <StatusBar style="auto" />
       </View>

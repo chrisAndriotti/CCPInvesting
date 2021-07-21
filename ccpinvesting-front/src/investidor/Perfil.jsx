@@ -203,8 +203,7 @@ const Perfil = props => {
     // const vendaInicial = VENDA_INICIAL;
 
     useEffect(() =>{
-         (buscarInvestidor(loginInvestidor));
-         
+         (buscarInvestidor(loginInvestidor));   
     }, []);
 
     const buscarInvestidor = async (login) => {
